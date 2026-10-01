@@ -1,0 +1,1668 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>استوديو بكسل — محرر الصور الاحترافي</title>
+    <meta
+      name="description"
+      content="محرر صور متكامل: تحويل الصيغ، إزالة الخلفية، الرسم، العمليات الهندسية، الفلاتر، الدمج، ومكتبة خلفيات المنتجات."
+    />
+    <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body>
+    <!-- ══════════════════ الشريط العلوي ══════════════════ -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <rect width="32" height="32" rx="8" fill="#1b2333" />
+            <path d="M7 24l6-11 4.5 7 3-4.5L26 24z" fill="#5b8cff" />
+            <circle cx="22" cy="11" r="3" fill="#ffd166" />
+          </svg>
+        </span>
+        <div class="brand-text">
+          <strong>استوديو بكسل</strong>
+          <small>Pixel Studio · محرر الصور</small>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <label class="btn btn-primary" title="فتح صورة من الجهاز">
+          <svg viewBox="0 0 24 24"><path d="M4 5h6l2 2h8v12H4z" /></svg> فتح
+          صورة
+          <input type="file" id="file-open" accept="image/*" multiple hidden />
+        </label>
+        <button class="btn" id="btn-sample" title="تحميل صورة تجريبية">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 5h18v14H3z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            />
+            <path d="M6 16l4-6 3 4 2-3 3 5z" />
+          </svg>
+          تجربة
+        </button>
+        <span class="divider"></span>
+        <button
+          class="btn icon-btn"
+          id="btn-undo"
+          title="تراجع (Ctrl+Z)"
+          disabled
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M9 7L4 12l5 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+            <path
+              d="M4 12h11a5 5 0 010 10h-3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn icon-btn"
+          id="btn-redo"
+          title="إعادة (Ctrl+Y)"
+          disabled
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M15 7l5 5-5 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+            <path
+              d="M20 12H9a5 5 0 000 10h3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+          </svg>
+        </button>
+        <span class="divider"></span>
+        <div class="zoom-group">
+          <button class="btn icon-btn" id="btn-zoom-out" title="تصغير العرض">
+            −
+          </button>
+          <span id="zoom-label" class="zoom-label">100%</span>
+          <button class="btn icon-btn" id="btn-zoom-in" title="تكبير العرض">
+            +
+          </button>
+          <button class="btn icon-btn" id="btn-zoom-fit" title="ملاءمة الشاشة">
+            ⤢
+          </button>
+        </div>
+        <span class="divider"></span>
+        <button class="btn" id="btn-compare" title="مقارنة قبل/بعد">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 3v18M4 6h6v12H4zM14 6h6v12h-6z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            />
+          </svg>
+          مقارنة
+        </button>
+        <button class="btn btn-success" id="btn-download" title="تنزيل النتيجة">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+          </svg>
+          تنزيل
+        </button>
+        <button
+          class="btn icon-btn"
+          id="btn-theme"
+          title="تبديل الوضع الليلي/النهاري"
+        >
+          <svg class="ico-moon" viewBox="0 0 24 24">
+            <path
+              d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+          </svg>
+          <svg class="ico-sun" viewBox="0 0 24 24" hidden>
+            <circle
+              cx="12"
+              cy="12"
+              r="4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+            <path
+              d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+        <div class="menu-wrap" id="menu-wrap">
+          <button
+            class="btn icon-btn"
+            id="btn-menu"
+            title="المزيد: الدليل، تحميله، المطوّر، الجولة"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="5" r="1.7" fill="currentColor" />
+              <circle cx="12" cy="12" r="1.7" fill="currentColor" />
+              <circle cx="12" cy="19" r="1.7" fill="currentColor" />
+            </svg>
+          </button>
+          <div class="app-menu" id="app-menu" hidden role="menu">
+            <button class="menu-item" id="mi-help" role="menuitem">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h6M9 14h6M9 17h4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              الدليل التعليمي
+            </button>
+            <a
+              class="menu-item"
+              id="mi-help-download"
+              href="/help/download"
+              download="pixel-studio-guide.html"
+              role="menuitem"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+              </svg>
+              تحميل ملف الدليل
+            </a>
+            <button class="menu-item" id="mi-tour" role="menuitem">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M4 12h12m0 0l-4-4m4 4l-4 4M20 5v14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+              </svg>
+              الجولة الترحيبية
+            </button>
+            <div class="menu-sep"></div>
+            <button class="menu-item" id="mi-about" role="menuitem">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M8 4L3 12l5 8M16 4l5 8-5 8M14 3l-4 18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              حول المطوّر
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════════════════ الجسم ══════════════════ -->
+    <div class="layout">
+      <!-- ───────── الشريط الجانبي الأيمن: الأدوات ───────── -->
+      <aside class="sidebar sidebar-tools" id="panels">
+        <div class="rail-label" aria-hidden="true">الأدوات</div>
+
+        <!-- 1) التحويل -->
+        <section class="panel" data-panel="convert">
+          <h3 class="panel-title"><span class="ico">⇄</span> تحويل الصيغة</h3>
+          <div class="panel-body">
+            <div class="row">
+              <label>الصيغة</label>
+              <select id="conv-format">
+                <option value="png">PNG — بلا فقد، يدعم الشفافية</option>
+                <option value="jpeg">JPEG — حجم صغير</option>
+                <option value="webp">WEBP — حديث ومضغوط</option>
+                <option value="avif">AVIF — أعلى ضغط</option>
+                <option value="bmp">BMP</option>
+                <option value="tiff">TIFF — للطباعة</option>
+                <option value="gif">GIF</option>
+                <option value="ico">ICO — أيقونة</option>
+                <option value="ppm">PPM</option>
+              </select>
+            </div>
+            <div class="row" data-only-lossy>
+              <label>الجودة <b id="conv-q-val">92</b></label>
+              <input
+                type="range"
+                id="conv-quality"
+                min="1"
+                max="100"
+                value="92"
+              />
+            </div>
+            <div class="row">
+              <label>لون الخلفية (عند فقد الشفافية)</label>
+              <input type="color" id="conv-bg" value="#ffffff" />
+            </div>
+            <div class="row inline">
+              <label class="chk"
+                ><input type="checkbox" id="conv-keep-alpha" checked /> الحفاظ
+                على الشفافية</label
+              >
+              <label class="chk"
+                ><input type="checkbox" id="conv-keep-exif" /> نقل EXIF</label
+              >
+            </div>
+            <div class="row info-line" id="conv-info">—</div>
+            <button class="btn btn-block btn-primary" id="btn-convert">
+              تحويل الصيغة
+            </button>
+          </div>
+        </section>
+
+        <!-- 2) الهندسي -->
+        <section class="panel" data-panel="geometry">
+          <h3 class="panel-title">
+            <span class="ico">⤢</span> العمليات الهندسية
+          </h3>
+          <div class="panel-body">
+            <div class="grid-2">
+              <button class="btn small" data-geo="rotate90" data-times="1">
+                ⟲ 90° يسار
+              </button>
+              <button class="btn small" data-geo="rotate90" data-times="3">
+                ⟳ 90° يمين
+              </button>
+              <button class="btn small" data-geo="flip" data-dir="horizontal">
+                ⇋ قلب أفقي
+              </button>
+              <button class="btn small" data-geo="flip" data-dir="vertical">
+                ⇵ قلب رأسي
+              </button>
+              <button class="btn small" data-geo="transpose">⤡ تبديل</button>
+              <button class="btn small" data-geo="crop-auto">
+                ✂ قصّ تلقائي
+              </button>
+            </div>
+
+            <div class="row">
+              <label>دوران حر <b id="geo-angle-val">0°</b></label>
+              <input
+                type="range"
+                id="geo-angle"
+                min="-180"
+                max="180"
+                value="0"
+                step="1"
+              />
+              <div class="row inline">
+                <label class="chk"
+                  ><input type="checkbox" id="geo-expand" checked /> توسيع
+                  اللوحة</label
+                >
+                <input
+                  type="color"
+                  id="geo-fill"
+                  value="#ffffff"
+                  title="لون التعبئة"
+                />
+                <button class="btn small" id="btn-rotate">تدوير</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <label>تغيير الحجم</label>
+              <div class="size-inputs">
+                <input type="number" id="geo-w" placeholder="العرض" min="1" />
+                <span>×</span>
+                <input
+                  type="number"
+                  id="geo-h"
+                  placeholder="الارتفاع"
+                  min="1"
+                />
+                <label class="chk" title="الحفاظ على النسبة"
+                  ><input type="checkbox" id="geo-lock" checked /> 🔒</label
+                >
+              </div>
+              <div class="row inline">
+                <select id="geo-resize-mode">
+                  <option value="fit">ملاءمة (fit)</option>
+                  <option value="fill">تعبئة (fill)</option>
+                  <option value="exact">أبعاد دقيقة</option>
+                  <option value="longest">أطول ضلع</option>
+                </select>
+                <select id="geo-resample">
+                  <option value="lanczos">Lanczos (أجود)</option>
+                  <option value="bicubic">Bicubic</option>
+                  <option value="bilinear">Bilinear</option>
+                  <option value="nearest">Nearest</option>
+                  <option value="box">Box</option>
+                </select>
+                <button class="btn small" id="btn-resize">تطبيق</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <label>قصّ إلى نسبة</label>
+              <div class="chips" id="aspect-chips">
+                <button class="chip" data-aspect="1:1">1:1</button>
+                <button class="chip" data-aspect="4:3">4:3</button>
+                <button class="chip" data-aspect="3:2">3:2</button>
+                <button class="chip" data-aspect="16:9">16:9</button>
+                <button class="chip" data-aspect="9:16">9:16</button>
+                <button class="chip" data-aspect="3:4">3:4</button>
+                <button class="chip" data-aspect="21:9">21:9</button>
+                <button class="chip" data-aspect="2:3">2:3</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <label>إطار / لوحة</label>
+              <div class="row inline">
+                <select id="geo-border-style">
+                  <option value="solid">إطار ساده</option>
+                  <option value="double">إطار مزدوج</option>
+                  <option value="shadow">إطار بظل</option>
+                  <option value="polaroid">بولارويد</option>
+                  <option value="rounded">حواف دائرية</option>
+                </select>
+                <input type="color" id="geo-border-color" value="#111111" />
+                <input
+                  type="number"
+                  id="geo-border-w"
+                  value="12"
+                  min="1"
+                  max="200"
+                  style="width: 64px"
+                />
+                <button class="btn small" id="btn-border">إطار</button>
+              </div>
+              <div class="row inline">
+                <input
+                  type="number"
+                  id="geo-pad"
+                  value="6"
+                  min="0"
+                  max="50"
+                  style="width: 64px"
+                  title="توسيع بالنسبة %"
+                />
+                <input type="color" id="geo-pad-color" value="#ffffff" />
+                <button class="btn small" id="btn-pad">توسيع اللوحة</button>
+                <button class="btn small" id="btn-shadow">ظل سقوط</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <label>تحويل منظوري (تصحيح الميل)</label>
+              <button class="btn small btn-block" id="btn-perspective">
+                تفعيل شبكة النقاط الأربع
+              </button>
+              <button class="btn small btn-block" id="btn-deskew">
+                اكتشاف الميل وتصحيحه تلقائياً
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3) القصّ التفاعلي -->
+        <section class="panel" data-panel="crop">
+          <h3 class="panel-title"><span class="ico">✂</span> القصّ التفاعلي</h3>
+          <div class="panel-body">
+            <p class="hint">اسحب على الصورة لتحديد المنطقة، ثم طبّق.</p>
+            <div class="row inline">
+              <label>النسبة</label>
+              <select id="crop-aspect">
+                <option value="free">حرّة</option>
+                <option value="1:1">1:1</option>
+                <option value="4:3">4:3</option>
+                <option value="3:2">3:2</option>
+                <option value="16:9">16:9</option>
+                <option value="9:16">9:16</option>
+                <option value="3:4">3:4</option>
+              </select>
+              <button class="btn small" id="btn-crop-all">كل الصورة</button>
+            </div>
+            <div class="row info-line" id="crop-info">لم يتم التحديد</div>
+            <div class="grid-2">
+              <button class="btn btn-primary" id="btn-crop-apply" disabled>
+                تطبيق القصّ
+              </button>
+              <button class="btn" id="btn-crop-cancel" disabled>إلغاء</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4) الرسم -->
+        <section class="panel" data-panel="draw">
+          <h3 class="panel-title">
+            <span class="ico">✎</span> الرسم على الصورة
+          </h3>
+          <div class="panel-body">
+            <div class="tools-grid" id="draw-tools">
+              <button class="tool active" data-tool="brush" title="فرشاة">
+                🖌
+              </button>
+              <button class="tool" data-tool="pencil" title="قلم">✏</button>
+              <button class="tool" data-tool="spray" title="رذاذ">💨</button>
+              <button class="tool" data-tool="eraser" title="ممحاة">⌫</button>
+              <button class="tool" data-tool="line" title="خط">╱</button>
+              <button class="tool" data-tool="arrow" title="سهم">➜</button>
+              <button class="tool" data-tool="rect" title="مستطيل">▭</button>
+              <button class="tool" data-tool="ellipse" title="دائرة">◯</button>
+              <button class="tool" data-tool="text" title="نص">T</button>
+              <button class="tool" data-tool="picker" title="منتقي لون">
+                🎯
+              </button>
+            </div>
+            <div class="row">
+              <label>اللون</label>
+              <div class="row inline">
+                <input type="color" id="draw-color" value="#e63946" />
+                <div class="swatches" id="draw-swatches"></div>
+              </div>
+            </div>
+            <div class="row">
+              <label>الحجم <b id="draw-size-val">14</b></label>
+              <input type="range" id="draw-size" min="1" max="160" value="14" />
+            </div>
+            <div class="row">
+              <label>الشفافية <b id="draw-opacity-val">100%</b></label>
+              <input
+                type="range"
+                id="draw-opacity"
+                min="5"
+                max="100"
+                value="100"
+              />
+            </div>
+            <div class="row" id="draw-text-row" hidden>
+              <label>النص</label>
+              <input
+                type="text"
+                id="draw-text"
+                placeholder="اكتب ثم انقر على الصورة"
+                value="نص تجريبي"
+              />
+            </div>
+            <div class="grid-2">
+              <button class="btn" id="btn-draw-undo">تراجع عن آخر خط</button>
+              <button class="btn" id="btn-draw-clear">مسح الرسم</button>
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-draw-flatten">
+              تثبيت الرسم على الصورة
+            </button>
+            <button
+              class="btn btn-block"
+              id="btn-draw-layer"
+              title="إبقاء الرسم طبقة مستقلة قابلة للحذف/الإخفاء"
+            >
+              تثبيت الرسم كطبقة مستقلة
+            </button>
+          </div>
+        </section>
+
+        <!-- 5) تحسينات البكسل -->
+        <section class="panel" data-panel="adjust">
+          <h3 class="panel-title"><span class="ico">◐</span> تحسينات البكسل</h3>
+          <div class="panel-body">
+            <div
+              class="slider"
+              data-key="brightness"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>السطوع</label>
+            </div>
+            <div
+              class="slider"
+              data-key="contrast"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>التباين</label>
+            </div>
+            <div
+              class="slider"
+              data-key="saturation"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>التشبّع</label>
+            </div>
+            <div
+              class="slider"
+              data-key="vibrance"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>التشبّع الذكي</label>
+            </div>
+            <div
+              class="slider"
+              data-key="exposure"
+              data-min="-3"
+              data-max="3"
+              data-def="0"
+              data-step="0.05"
+            >
+              <label>التعرّض (EV)</label>
+            </div>
+            <div
+              class="slider"
+              data-key="gamma"
+              data-min="0.2"
+              data-max="3"
+              data-def="1"
+              data-step="0.01"
+            >
+              <label>جاما</label>
+            </div>
+            <div
+              class="slider"
+              data-key="temperature"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>الحرارة</label>
+            </div>
+            <div
+              class="slider"
+              data-key="tint"
+              data-min="-100"
+              data-max="100"
+              data-def="0"
+            >
+              <label>الصبغة</label>
+            </div>
+            <div
+              class="slider"
+              data-key="hue"
+              data-min="-180"
+              data-max="180"
+              data-def="0"
+            >
+              <label>درجة اللون</label>
+            </div>
+            <div class="row inline">
+              <label class="chk"
+                ><input type="checkbox" id="adj-live" checked /> معاينة
+                فورية</label
+              >
+              <button class="btn small" id="btn-adj-reset">إعادة الضبط</button>
+            </div>
+            <div class="row inline">
+              <select id="adj-wb">
+                <option value="">توازن أبيض: إيقاف</option>
+                <option value="grayworld">Gray World</option>
+                <option value="whitepatch">White Patch</option>
+              </select>
+              <button class="btn small" id="btn-auto-levels">
+                مستويات تلقائية
+              </button>
+              <button class="btn small" id="btn-auto-contrast">
+                تباين تلقائي
+              </button>
+            </div>
+            <div class="row">
+              <label>المستويات (Levels)</label>
+              <div class="row inline triple">
+                <span
+                  >أسود
+                  <input
+                    type="number"
+                    id="lv-black"
+                    step="0.01"
+                    min="0"
+                    max="0.99"
+                    value="0"
+                /></span>
+                <span
+                  >جاما
+                  <input
+                    type="number"
+                    id="lv-gamma"
+                    step="0.05"
+                    min="0.1"
+                    max="10"
+                    value="1"
+                /></span>
+                <span
+                  >أبيض
+                  <input
+                    type="number"
+                    id="lv-white"
+                    step="0.01"
+                    min="0.01"
+                    max="1"
+                    value="1"
+                /></span>
+              </div>
+            </div>
+            <div class="row">
+              <label>المنحنيات (Curves) — انقر لإضافة نقاط</label>
+              <canvas
+                id="curves-canvas"
+                width="220"
+                height="220"
+                class="curves"
+              ></canvas>
+              <div class="row inline">
+                <select id="curves-channel">
+                  <option value="rgb">RGB</option>
+                  <option value="r">أحمر</option>
+                  <option value="g">أخضر</option>
+                  <option value="b">أزرق</option>
+                </select>
+                <button class="btn small" id="btn-curves-reset">تصفير</button>
+              </div>
+            </div>
+            <div class="row inline">
+              <button class="btn small" id="btn-invert">عكس</button>
+              <button class="btn small" id="btn-grayscale">رمادي</button>
+              <button class="btn small" id="btn-posterize">بوسترة</button>
+              <button class="btn small" id="btn-threshold-otsu">
+                عتبة Otsu
+              </button>
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-adj-apply">
+              تطبيق التعديلات
+            </button>
+          </div>
+        </section>
+
+        <!-- 6) الفلاتر -->
+        <section class="panel" data-panel="filters">
+          <h3 class="panel-title"><span class="ico">✦</span> الفلاتر</h3>
+          <div class="panel-body">
+            <div class="row">
+              <label>التنعيم (Blur)</label>
+              <div class="row inline">
+                <select id="blur-mode">
+                  <option value="gaussian">Gaussian</option>
+                  <option value="box">Box</option>
+                  <option value="motion">Motion (حركة)</option>
+                  <option value="radial_zoom">Radial Zoom</option>
+                  <option value="radial_spin">Radial Spin</option>
+                  <option value="surface">Surface (بشرة)</option>
+                  <option value="bilateral">Bilateral</option>
+                  <option value="nlmeans">NL-Means</option>
+                </select>
+                <button class="btn small" id="btn-blur">تنعيم</button>
+              </div>
+              <div
+                class="slider"
+                data-key="blur-radius"
+                data-min="0.5"
+                data-max="30"
+                data-def="3"
+                data-step="0.5"
+                data-nosend="1"
+              >
+                <label>نصف القطر</label>
+              </div>
+            </div>
+            <div class="row">
+              <label>التحديد (Sharpen)</label>
+              <div class="row inline">
+                <select id="sharp-mode">
+                  <option value="unsharp">Unsharp Mask</option>
+                  <option value="highpass">High Pass</option>
+                  <option value="laplacian">Laplacian</option>
+                  <option value="detail">Detail</option>
+                </select>
+                <button class="btn small" id="btn-sharpen">تحديد</button>
+              </div>
+              <div
+                class="slider"
+                data-key="sharp-amount"
+                data-min="0"
+                data-max="3"
+                data-def="1"
+                data-step="0.05"
+                data-nosend="1"
+              >
+                <label>القوة</label>
+              </div>
+            </div>
+            <div class="row inline">
+              <button class="btn small" id="btn-denoise">تقليل الضوضاء</button>
+              <button class="btn small" id="btn-surface-smooth">
+                تنعيم بشرة
+              </button>
+            </div>
+            <div class="row">
+              <label>فلاتر فنية (انقر للمعاينة ثم للتطبيق)</label>
+              <div class="filter-grid" id="filter-grid"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7) إزالة الخلفية -->
+        <section class="panel" data-panel="restore">
+          <h3 class="panel-title">
+            <span class="ico">🕰</span> ترميم الصور القديمة
+          </h3>
+          <div class="panel-body">
+            <div class="row inline">
+              <label
+                class="chk"
+                title="كشف الخدوش الرفيعة مورفولوجياً وترميمها بالفيضان"
+                ><input type="checkbox" id="rs-scratch" checked /> إزالة
+                الخدوش</label
+              >
+              <label class="chk" title="البقع والغبار الصغير"
+                ><input type="checkbox" id="rs-dust" checked /> إزالة
+                الغبار</label
+              >
+            </div>
+            <div class="row inline">
+              <label
+                class="chk"
+                title="موازنة لونية + CLAHE لإزالة الاصفرار والبهتان"
+                ><input type="checkbox" id="rs-recolor" checked /> استعادة
+                الألوان</label
+              >
+            </div>
+            <div
+              class="slider"
+              data-key="rs-denoise"
+              data-min="0"
+              data-max="1"
+              data-step="0.1"
+              data-def="0.5"
+            >
+              <label>تقليل الضوضاء</label>
+            </div>
+            <div
+              class="slider"
+              data-key="rs-sharpen"
+              data-min="0"
+              data-max="1"
+              data-step="0.1"
+              data-def="0.4"
+            >
+              <label>استعادة الحدة</label>
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-restore">
+              ترميم الصورة
+            </button>
+            <div class="note">
+              يعالج البهتان والاصفرار والخدوش والغبار — خوارزميات كلاسيكية (كشف
+              مورفولوجي + ترميم بالفيضان) بلا ذكاء اصطناعي.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="retouch">
+          <h3 class="panel-title"><span class="ico">👤</span> تنقيح الوجوه</h3>
+          <div class="panel-body">
+            <div
+              class="slider"
+              data-key="rt-smooth"
+              data-min="0"
+              data-max="1"
+              data-step="0.1"
+              data-def="0.6"
+            >
+              <label>تنعيم البشرة</label>
+            </div>
+            <div class="row inline">
+              <label class="chk" title="البقع الداكنة الصغيرة داخل البشرة"
+                ><input type="checkbox" id="rt-blemish" checked /> إزالة
+                العيوب</label
+              >
+              <label class="chk" title="إطفاء حمرة بؤبؤ العين"
+                ><input type="checkbox" id="rt-redeye" checked /> إزالة العين
+                الحمراء</label
+              >
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-retouch">
+              تنقيح الوجوه
+            </button>
+            <div class="note">
+              يكتشف الوجوه تلقائياً (Haar) وينعّم البشرة بانتقائية مع الحفاظ على
+              الملامح — يظهر عدد الوجوه المعالجة بعد التنفيذ.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="document">
+          <h3 class="panel-title"><span class="ico">📄</span> وضع المستندات</h3>
+          <div class="panel-body">
+            <div class="chips" id="doc-modes">
+              <button class="chip" data-dmode="bw">أبيض/أسود</button>
+              <button class="chip active" data-dmode="enhance">تحسين</button>
+              <button class="chip" data-dmode="color">ملوّن</button>
+            </div>
+            <div class="row inline">
+              <label class="chk" title="كشف حدود الورقة وتصحيح ميلها منظوراً"
+                ><input type="checkbox" id="doc-persp" checked /> تصحيح المنظور
+                تلقائياً</label
+              >
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-document">
+              معالجة المستند
+            </button>
+            <div class="note">
+              حوّل صورة ورقة مصوّرة إلى مستند نظيف: «تحسين» يبيّض الخلفية ويُبقى
+              لون الحبر، و«أبيض/أسود» للمسح الضوئي الصرف.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="segment">
+          <h3 class="panel-title"><span class="ico">⊘</span> إزالة الخلفية</h3>
+          <div class="panel-body">
+            <div class="note">
+              خوارزميات كلاسيكية (OpenCV) — لا يستخدم المشروع أي نموذج ذكاء
+              اصطناعي.
+            </div>
+            <div class="row">
+              <label>الخوارزمية</label>
+              <select id="seg-method"></select>
+              <p class="hint" id="seg-desc"></p>
+            </div>
+            <div
+              class="slider"
+              data-key="seg-tolerance"
+              data-min="2"
+              data-max="120"
+              data-def="40"
+              data-nosend="1"
+            >
+              <label>التسامح اللوني</label>
+            </div>
+            <div
+              class="slider"
+              data-key="seg-softness"
+              data-min="0"
+              data-max="60"
+              data-def="20"
+              data-nosend="1"
+            >
+              <label>نعومة الانتقال</label>
+            </div>
+            <div
+              class="slider"
+              data-key="seg-feather"
+              data-min="0"
+              data-max="12"
+              data-def="1.5"
+              data-step="0.5"
+              data-nosend="1"
+            >
+              <label>تنعيم الحافة</label>
+            </div>
+            <div
+              class="slider"
+              data-key="seg-shrink"
+              data-min="0"
+              data-max="10"
+              data-def="0"
+              data-step="0.5"
+              data-nosend="1"
+            >
+              <label>تقليص (إزالة الهالة)</label>
+            </div>
+            <div
+              class="slider"
+              data-key="seg-decontam"
+              data-min="0"
+              data-max="1"
+              data-def="0.6"
+              data-step="0.05"
+              data-nosend="1"
+            >
+              <label>إزالة تلوّث اللون</label>
+            </div>
+            <div class="row inline">
+              <label class="chk"
+                ><input type="checkbox" id="seg-holes" checked /> ملء
+                الثقوب</label
+              >
+              <label class="chk"
+                ><input type="checkbox" id="seg-crop" /> قصّ للناتج</label
+              >
+            </div>
+            <div class="row">
+              <label>منطقة الجسم (لخوارزمية GrabCut)</label>
+              <button class="btn small btn-block" id="btn-seg-rect">
+                تحديد مستطيل الجسم على الصورة
+              </button>
+            </div>
+            <div class="grid-2">
+              <button class="btn btn-primary" id="btn-seg-run">
+                إزالة الخلفية
+              </button>
+              <button class="btn" id="btn-seg-mask">عرض القناع فقط</button>
+            </div>
+            <div class="row info-line" id="seg-info">—</div>
+          </div>
+        </section>
+
+        <!-- 8) الدمج -->
+        <section class="panel" data-panel="blend">
+          <h3 class="panel-title"><span class="ico">⧉</span> دمج صورتين</h3>
+          <div class="panel-body">
+            <div class="dropzone" id="blend-drop">
+              <input type="file" id="blend-file" accept="image/*" hidden />
+              <span>اسحب الصورة الثانية هنا أو انقر للاختيار</span>
+              <img id="blend-thumb" alt="" hidden />
+            </div>
+            <div class="row">
+              <label>نمط المزج</label>
+              <select id="blend-mode"></select>
+            </div>
+            <div
+              class="slider"
+              data-key="blend-opacity"
+              data-min="0"
+              data-max="100"
+              data-def="100"
+              data-nosend="1"
+            >
+              <label>الشفافية</label>
+            </div>
+            <div
+              class="slider"
+              data-key="blend-scale"
+              data-min="10"
+              data-max="200"
+              data-def="100"
+              data-nosend="1"
+            >
+              <label>مقياس الطبقة</label>
+            </div>
+            <div class="row">
+              <label>الموضع</label>
+              <select id="blend-anchor">
+                <option value="center">المنتصف</option>
+                <option value="top-left">أعلى اليسار</option>
+                <option value="top">أعلى</option>
+                <option value="top-right">أعلى اليمين</option>
+                <option value="left">اليسار</option>
+                <option value="right">اليمين</option>
+                <option value="bottom-left">أسفل اليسار</option>
+                <option value="bottom">أسفل</option>
+                <option value="bottom-right">أسفل اليمين</option>
+              </select>
+            </div>
+            <div class="grid-2">
+              <button class="btn btn-primary" id="btn-blend-run">دمج</button>
+              <button class="btn" id="btn-blend-seamless">مزج هرمي سلس</button>
+            </div>
+            <div class="grid-2">
+              <button class="btn small" id="btn-pip">صورة داخل صورة</button>
+              <button class="btn small" id="btn-double-exposure">
+                تعريض مزدوج
+              </button>
+            </div>
+            <div class="row">
+              <label>تخطيطات الدمج (الصورة الثانية + الحالية)</label>
+              <div class="row inline">
+                <select id="merge-layout">
+                  <option value="horizontal">أفقي</option>
+                  <option value="vertical">رأسي</option>
+                  <option value="grid">شبكة</option>
+                  <option value="stacked">مكدّس</option>
+                </select>
+                <input
+                  type="number"
+                  id="merge-gap"
+                  value="8"
+                  min="0"
+                  max="100"
+                  style="width: 64px"
+                  title="الفاصل"
+                />
+                <button class="btn small" id="btn-merge">دمج</button>
+              </div>
+            </div>
+            <div class="row">
+              <label>علامة مائية</label>
+              <input
+                type="text"
+                id="wm-text"
+                placeholder="نص العلامة المائية"
+                value="© استوديو بكسل"
+              />
+              <div class="row inline">
+                <input type="color" id="wm-color" value="#ffffff" />
+                <input
+                  type="number"
+                  id="wm-size"
+                  value="34"
+                  min="8"
+                  max="200"
+                  style="width: 64px"
+                />
+                <input
+                  type="number"
+                  id="wm-opacity"
+                  value="55"
+                  min="0"
+                  max="100"
+                  style="width: 64px"
+                  title="الشفافية %"
+                />
+              </div>
+              <div class="row inline">
+                <select id="wm-pos">
+                  <option value="bottom-right">أسفل اليمين</option>
+                  <option value="bottom-left">أسفل اليسار</option>
+                  <option value="top-right">أعلى اليمين</option>
+                  <option value="top-left">أعلى اليسار</option>
+                  <option value="center">المنتصف</option>
+                </select>
+                <label class="chk"
+                  ><input type="checkbox" id="wm-tile" /> مبلّطة</label
+                >
+                <button class="btn small" id="btn-wm">إضافة</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9) الخلفيات -->
+        <section class="panel" data-panel="backgrounds">
+          <h3 class="panel-title">
+            <span class="ico">▦</span> خلفيات المنتجات
+          </h3>
+          <div class="panel-body">
+            <div class="note">
+              ٥٧ خلفية مولّدة برمجياً داخل الخادم — لا صور خارجية.
+            </div>
+            <div class="chips" id="bg-cats"></div>
+            <div class="bg-grid" id="bg-grid"></div>
+            <div
+              class="slider"
+              data-key="bg-scale"
+              data-min="20"
+              data-max="95"
+              data-def="62"
+              data-nosend="1"
+            >
+              <label>حجم المنتج %</label>
+            </div>
+            <div class="row inline">
+              <select id="bg-position">
+                <option value="center">المنتصف</option>
+                <option value="bottom">أسفل</option>
+                <option value="top">أعلى</option>
+              </select>
+              <label class="chk"
+                ><input type="checkbox" id="bg-shadow" checked /> ظل</label
+              >
+              <label class="chk"
+                ><input type="checkbox" id="bg-reflection" /> انعكاس</label
+              >
+            </div>
+            <div class="row inline">
+              <button class="btn btn-primary small" id="btn-bg-compose">
+                تركيب على الخلفية المختارة
+              </button>
+              <button class="btn small" id="btn-bg-download">
+                تنزيل الخلفية فقط
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10) الإبداعية -->
+        <section class="panel" data-panel="creative">
+          <h3 class="panel-title">
+            <span class="ico">✨</span> مؤثرات إبداعية
+          </h3>
+          <div class="panel-body">
+            <div class="filter-grid" id="creative-grid"></div>
+            <div
+              class="slider"
+              data-key="creative-amount"
+              data-min="0"
+              data-max="200"
+              data-def="100"
+              data-nosend="1"
+            >
+              <label>قوة المؤثر</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11) الدفعات -->
+        <section class="panel" data-panel="batch">
+          <h3 class="panel-title"><span class="ico">⚙</span> معالجة دفعات</h3>
+          <div class="panel-body">
+            <div class="dropzone" id="batch-drop">
+              <input
+                type="file"
+                id="batch-files"
+                accept="image/*"
+                multiple
+                hidden
+              />
+              <span>أضف عدة صور (حتى 12)</span>
+            </div>
+            <div class="batch-list" id="batch-list"></div>
+            <div class="row">
+              <label>سلسلة العمليات</label>
+              <div class="chips" id="batch-steps"></div>
+              <div class="pipeline" id="batch-pipeline"></div>
+            </div>
+            <div class="row inline">
+              <select id="batch-format">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WEBP</option>
+                <option value="avif">AVIF</option>
+              </select>
+              <button class="btn btn-primary small" id="btn-batch-run">
+                تشغيل الدفعة
+              </button>
+              <button class="btn small" id="btn-batch-clear">تفريغ</button>
+            </div>
+            <div class="batch-results" id="batch-results"></div>
+          </div>
+        </section>
+
+        <!-- 12) التحليل -->
+        <!-- 12أ) النصوص -->
+        <section class="panel" data-panel="text">
+          <h3 class="panel-title">
+            <span class="ico">🅣</span> النصوص على الصورة
+          </h3>
+          <div class="panel-body">
+            <div class="row">
+              <input
+                type="text"
+                id="txt-content"
+                placeholder="اكتب النص هنا (يدعم العربية)"
+              />
+            </div>
+            <div class="row inline">
+              <select id="txt-font">
+                <option value='"Segoe UI", Tahoma, sans-serif'>
+                  خط النظام
+                </option>
+                <option value='Georgia, "Times New Roman", serif'>
+                  سيريف كلاسيكي
+                </option>
+                <option value='"Courier New", monospace'>آلة كاتبة</option>
+                <option value='Impact, "Arial Black", sans-serif'>
+                  عريض إعلاني
+                </option>
+                <option value='"Amiri", serif'>أميري (إن توفّر)</option>
+              </select>
+              <input
+                type="color"
+                id="txt-color"
+                value="#ffd166"
+                title="لون النص"
+              />
+            </div>
+            <div
+              class="slider"
+              data-key="txt-size"
+              data-min="8"
+              data-max="120"
+              data-def="24"
+              data-nosend="1"
+            >
+              <label>حجم النص</label>
+            </div>
+            <div
+              class="slider"
+              data-key="txt-rotate"
+              data-min="-180"
+              data-max="180"
+              data-def="0"
+              data-nosend="1"
+            >
+              <label>زاوية الميل</label>
+            </div>
+            <div
+              class="slider"
+              data-key="txt-opacity"
+              data-min="10"
+              data-max="100"
+              data-def="100"
+              data-nosend="1"
+            >
+              <label>الشفافية %</label>
+            </div>
+            <div class="row inline">
+              <label class="chk"
+                ><input type="checkbox" id="txt-bold" checked /> عريض</label
+              >
+              <label class="chk"
+                ><input type="checkbox" id="txt-outline" /> حدود</label
+              >
+              <label class="chk"
+                ><input type="checkbox" id="txt-shadow" /> ظل</label
+              >
+            </div>
+            <div class="row inline">
+              <label
+                class="chk"
+                title="ارسم مستطيلاً على الصورة ويُلفّ النص داخله تلقائياً"
+                ><input type="checkbox" id="txt-box" /> منطقة نص (رسم
+                صندوق)</label
+              >
+            </div>
+            <div class="row inline align-row">
+              <span class="mini-lbl" title="محاذاة النص داخل منطقة النص"
+                >أفقية</span
+              >
+              <button
+                class="btn small"
+                data-talign="start"
+                title="محاذاة لليمين (بداية السطر)"
+              >
+                يمين
+              </button>
+              <button
+                class="btn small active"
+                data-talign="center"
+                title="توسيط"
+              >
+                وسط
+              </button>
+              <button
+                class="btn small"
+                data-talign="end"
+                title="محاذاة لليسار (نهاية السطر)"
+              >
+                يسار
+              </button>
+            </div>
+            <div class="row inline align-row">
+              <span class="mini-lbl" title="المحاذاة الرأسية داخل منطقة النص"
+                >رأسية</span
+              >
+              <button class="btn small" data-tvalign="top" title="أعلى">
+                أعلى
+              </button>
+              <button
+                class="btn small active"
+                data-tvalign="middle"
+                title="وسط"
+              >
+                وسط
+              </button>
+              <button class="btn small" data-tvalign="bottom" title="أسفل">
+                أسفل
+              </button>
+            </div>
+            <button class="btn btn-block btn-primary" id="btn-txt-place">
+              انقر لوضع النص على الصورة
+            </button>
+            <button
+              class="btn btn-block"
+              id="btn-txt-update"
+              disabled
+              title="يطبّق قيم اللوحة على النص المحدد (التعديل أصلاً فوري أثناء الاختيار)"
+            >
+              تحديث النص المحدد
+            </button>
+            <div class="note">
+              طرق التحرير: نقرة مزدوجة على أي نص في الصورة تفتح محرراً في مكانه
+              · النص المحدد يُعدَّل فوراً من هذه اللوحة · اسحبه للتحريك والمقبض
+              ◢ للتحجيم · أو اختره بزر ✎ من «الطبقات». فعّل «منطقة نص» لرسم
+              صندوق يُلفّ النص داخله مع محاذاة أفقية ورأسية.
+            </div>
+          </div>
+        </section>
+
+        <!-- 12ب) تحديد الكائنات -->
+        <section class="panel" data-panel="select">
+          <h3 class="panel-title"><span class="ico">✂</span> تحديد الكائنات</h3>
+          <div class="panel-body">
+            <div class="chips" id="sel-tools">
+              <button class="chip" data-stool="wand">عصا سحرية</button>
+              <button class="chip active" data-stool="auto">تلقائي</button>
+              <button class="chip" data-stool="rect">مستطيل</button>
+              <button class="chip" data-stool="points">نقاط</button>
+              <button class="chip" data-stool="brush">يدوي</button>
+              <button class="chip" data-stool="eraser">ممحاة</button>
+            </div>
+            <div
+              class="slider"
+              data-key="sel-wandtol"
+              data-min="5"
+              data-max="100"
+              data-def="32"
+              data-nosend="1"
+            >
+              <label>تسامح العصا</label>
+            </div>
+            <div
+              class="slider"
+              data-key="sel-brush"
+              data-min="6"
+              data-max="120"
+              data-def="24"
+              data-nosend="1"
+            >
+              <label>حجم الفرشاة</label>
+            </div>
+            <div
+              class="slider"
+              data-key="sel-feather"
+              data-min="0"
+              data-max="6"
+              data-def="1.5"
+              data-step="0.5"
+              data-nosend="1"
+            >
+              <label>تنعيم الحواف</label>
+            </div>
+            <div
+              class="slider"
+              data-key="sel-iter"
+              data-min="3"
+              data-max="20"
+              data-def="10"
+              data-nosend="1"
+            >
+              <label>دقة التحديد (تكرارات)</label>
+            </div>
+            <div class="row inline">
+              <label
+                class="chk"
+                title="صقل حواف القناع بمرشّح موجّه يطابق حواف الصورة الحقيقية (شعر/انحناءات)"
+                ><input type="checkbox" id="sel-matte" checked /> تحسين الحواف
+                الذكي</label
+              >
+            </div>
+            <div class="row inline">
+              <button class="btn btn-primary" id="btn-sel-apply">
+                استخراج الكائن كطبقة
+              </button>
+              <button class="btn" id="btn-sel-clear">تصفير المدخلات</button>
+            </div>
+            <div class="note">
+              العصا السحرية: انقر على الكائن فيُنتقى بلونه فوراً (معاينة خضراء)
+              — نقرة أخرى تضيف منطقة، ومع Shift تستثني. النقاط: نقرة = جسم
+              (أخضر)، مع Shift = خلفية (أحمر). اليدوي: ارسم فوق الكائن، والممحاة
+              تستثني. ارفع «دقة التحديد» للأجسام المعقّدة.
+            </div>
+          </div>
+        </section>
+
+        <!-- 12ج) الطبقات -->
+        <section class="panel" data-panel="layers">
+          <h3 class="panel-title"><span class="ico">▤</span> الطبقات</h3>
+          <div class="panel-body">
+            <div class="layers-head">
+              <span id="layers-count">0 طبقات</span>
+            </div>
+            <div class="layers-list" id="layers-list"></div>
+            <div class="row inline">
+              <button class="btn btn-primary small" id="btn-layers-flatten">
+                دمج الكل بالصورة
+              </button>
+              <button class="btn small" id="btn-layers-clear">حذف الكل</button>
+            </div>
+            <div class="note">
+              الأصل مقفل؛ كل إضافة (رسم/نص/تحديد) طبقة مستقلة: أظهر، أخفِ، رتّب،
+              أو احذف.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="analysis">
+          <h3 class="panel-title"><span class="ico">📊</span> تحليل الصورة</h3>
+          <div class="panel-body">
+            <button class="btn btn-block" id="btn-analyze">
+              تحليل الصورة الحالية
+            </button>
+            <div id="analysis-out" class="analysis"></div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- مقبض الطي/التحجيم للشريط الأيمن (الأدوات) -->
+      <div
+        class="side-grip"
+        id="grip-tools"
+        title="اسحب لتغيير عرض لوحة الأدوات · نقرة على الزر للطي/الفتح · نقرة مزدوجة للعرض الافتراضي"
+      >
+        <button
+          class="grip-btn"
+          id="grip-tools-btn"
+          title="طي/توسيع لوحة الأدوات"
+        >
+          ❯
+        </button>
+      </div>
+
+      <!-- ───────── منطقة العمل ───────── -->
+      <main class="workspace" id="workspace">
+        <div class="canvas-wrap" id="canvas-wrap">
+          <div class="empty-state" id="empty-state">
+            <svg viewBox="0 0 120 120" width="120" height="120">
+              <rect
+                x="14"
+                y="26"
+                width="92"
+                height="68"
+                rx="8"
+                fill="none"
+                stroke="#3a465e"
+                stroke-width="2"
+              />
+              <path d="M28 78l18-26 14 19 10-13 22 20z" fill="#5b8cff" />
+              <circle cx="76" cy="46" r="8" fill="#ffd166" />
+            </svg>
+            <h2>ابدأ بفتح صورة</h2>
+            <p>
+              اسحب صورة وأفلتها هنا، أو اضغط «فتح صورة»، أو جرّب العيّنة
+              الجاهزة.
+            </p>
+            <div class="empty-actions">
+              <label class="btn btn-primary"
+                >اختيار صورة<input
+                  type="file"
+                  id="file-open-2"
+                  accept="image/*"
+                  hidden
+              /></label>
+              <button class="btn" id="btn-sample-2">صورة تجريبية</button>
+            </div>
+            <div class="capabilities" id="capabilities"></div>
+          </div>
+
+          <div class="canvas-stage" id="canvas-stage" hidden>
+            <canvas id="img-canvas"></canvas>
+            <canvas id="overlay-canvas"></canvas>
+            <div class="compare-layer" id="compare-layer" hidden>
+              <img id="compare-img" alt="قبل" />
+              <div class="compare-handle" id="compare-handle"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="statusbar">
+          <span id="status-file">لا توجد صورة</span>
+          <span id="status-dims">—</span>
+          <span id="status-size">—</span>
+          <span id="status-tool">الأداة: تحريك</span>
+          <span id="status-msg" class="status-msg"></span>
+          <span id="status-time"></span>
+        </div>
+      </main>
+
+      <!-- مقبض الطي/التحجيم للشريط الأيسر (السجل) -->
+      <div
+        class="side-grip"
+        id="grip-hist"
+        title="اسحب لتغيير عرض سجل العمليات · نقرة على الزر للطي/الفتح · نقرة مزدوجة للعرض الافتراضي"
+      >
+        <button
+          class="grip-btn"
+          id="grip-hist-btn"
+          title="طي/توسيع سجل العمليات"
+        >
+          ❮
+        </button>
+      </div>
+
+      <!-- ───────── الشريط الجانبي الأيسر: السجل ───────── -->
+      <aside class="sidebar sidebar-history">
+        <div class="rail-label" aria-hidden="true">السجل</div>
+        <h3 class="side-title">سجل العمليات</h3>
+        <div class="history-list" id="history-list"></div>
+        <h3 class="side-title">معلومات الصورة</h3>
+        <div class="info-box" id="info-box">—</div>
+      </aside>
+    </div>
+
+    <!-- ══════════════════ التنزيل ══════════════════ -->
+    <div class="modal" id="download-modal" hidden>
+      <div class="modal-box">
+        <h3>تنزيل الصورة</h3>
+        <div class="row">
+          <label>الصيغة</label>
+          <select id="dl-format">
+            <option value="png">PNG</option>
+            <option value="jpeg">JPEG</option>
+            <option value="webp">WEBP</option>
+            <option value="avif">AVIF</option>
+            <option value="tiff">TIFF</option>
+            <option value="bmp">BMP</option>
+            <option value="ico">ICO</option>
+          </select>
+        </div>
+        <div class="row" id="dl-quality-row">
+          <label>الجودة <b id="dl-q-val">92</b></label>
+          <input type="range" id="dl-quality" min="1" max="100" value="92" />
+        </div>
+        <div class="row">
+          <label>اسم الملف</label>
+          <input type="text" id="dl-name" value="pixel-studio" />
+        </div>
+        <div class="row info-line" id="dl-info">—</div>
+        <div class="row inline">
+          <button class="btn btn-primary" id="btn-dl-go">تنزيل</button>
+          <button class="btn" id="btn-dl-close">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ الدليل التعليمي ══════════════════ -->
+    <div class="modal" id="help-modal" hidden>
+      <div class="modal-box wide">
+        <div class="help-head">
+          <h3>الدليل التعليمي — استوديو بكسل</h3>
+          <div class="row inline">
+            <a
+              class="btn btn-success small"
+              id="btn-help-download"
+              href="/help/download"
+              download="pixel-studio-guide.html"
+              title="حفظ نسخة من الملف على جهازك"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+              </svg>
+              تحميل الملف
+            </a>
+            <a
+              class="btn small"
+              id="btn-help-print"
+              href="/help"
+              target="_blank"
+              rel="noopener"
+              title="فتح في تبويب مستقل للطباعة أو الحفظ PDF"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M7 8V4h10v4M7 17H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-2m-10-3h10v5H7z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              طباعة / PDF
+            </a>
+            <button class="btn small" id="btn-help-close">إغلاق</button>
+          </div>
+        </div>
+        <iframe
+          id="help-frame"
+          class="help-frame"
+          title="الدليل التعليمي"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- ══════════════════ حول المطوّر ══════════════════ -->
+    <div class="modal" id="about-modal" hidden>
+      <div class="modal-box">
+        <div id="about-body"></div>
+        <div class="row inline" style="justify-content: center">
+          <button class="btn" id="btn-about-close">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ الجولة الترحيبية ══════════════════ -->
+    <div class="tour-overlay" id="tour-overlay" hidden>
+      <div class="tour-spot" id="tour-spot"></div>
+      <div class="tour-card" id="tour-card">
+        <div class="tour-step" id="tour-step">1 / 6</div>
+        <h4 id="tour-title"></h4>
+        <p id="tour-text"></p>
+        <div class="tour-nav">
+          <button class="btn small" id="tour-skip">تخطّي</button>
+          <span class="tour-dots" id="tour-dots"></span>
+          <span class="tour-btns">
+            <button class="btn small" id="tour-prev">السابق</button>
+            <button class="btn small btn-primary" id="tour-next">التالي</button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-host" id="toast-host"></div>
+    <div class="busy" id="busy" hidden>
+      <div class="spinner"></div>
+      <span id="busy-text">جارٍ المعالجة…</span>
+    </div>
+
+    <script type="module" src="/assets/js/app.js"></script>
+  </body>
+</html>

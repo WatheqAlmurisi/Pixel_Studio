@@ -1,0 +1,19 @@
+# بيئات Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# مخابئ المشروع
+.cache/
+backend/models/
+
+# اعتماديات الواجهة
+node_modules/
+
+# ملفات النظام
+.DS_Store
+Thumbs.db

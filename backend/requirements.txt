@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════════
+#  استوديو بكسل — اعتماديات الخادم الخلفي (Python 3.10+)
+#  التثبيت:  pip install -r requirements.txt
+#  ملاحظة: لا يوجد أي اعتماد على مكتبات ذكاء اصطناعي أو نماذج مُدرَّبة.
+# ═══════════════════════════════════════════════════════════════
+
+# إطار الويب وخادم ASGI
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+python-multipart==0.0.32          # دعم طلبات multipart (احتياطي)
+
+# معالجة الصور
+Pillow==12.3.0                    # فك/ترميز الصيغ: PNG, JPEG, WEBP, AVIF, TIFF, ICO…
+opencv-python-headless==4.11.0.86 # GrabCut · FloodFill · Bilateral · NL-Means · Canny…
+numpy==2.3.5                      # الحساب العددي على المصفوفات
+
+# تشكيل النص العربي (للعلامات المائية)
+arabic-reshaper==3.0.1
+python-bidi==0.6.11
+
+# إنشاء التقرير الأكاديمي PDF
+weasyprint==68.1
+
+# الاختبارات
+pytest==9.0.3
+httpx==0.28.1                     # عميل TestClient لـ FastAPI

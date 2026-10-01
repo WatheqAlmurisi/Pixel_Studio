@@ -1,0 +1,1586 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>الدليل التعليمي — استوديو بكسل</title>
+    <style>
+      /* ════════════════════════════════════════════════════════════════
+   الدليل التعليمي لاستوديو بكسل — ملف واحد يعمل دون إنترنت
+   ════════════════════════════════════════════════════════════════ */
+      :root {
+        --ink: #232c36;
+        --ink-soft: #4a5563;
+        --navy: #1f3a5f;
+        --navy-deep: #16283f;
+        --accent: #3f6ea5;
+        --gold: #a9822f;
+        --line: #c9d4e0;
+        --paper: #fdfdfb;
+        --tint: #f2f5f9;
+        --tint-2: #e8eef5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        direction: rtl;
+      }
+
+      body {
+        margin: 0;
+        background: #e6ebf1;
+        color: var(--ink);
+        font-family: "Noto Naskh Arabic", "Arial", "Tahoma", serif;
+        font-size: 11pt;
+        line-height: 1.9;
+      }
+
+      .doc {
+        max-width: 210mm;
+        margin: 0 auto;
+        background: var(--paper);
+        padding: 0;
+      }
+
+      /* ──────────────── إعدادات الطباعة A4 ──────────────── */
+      @page {
+        size: A4;
+        margin: 19mm 15mm 17mm 15mm;
+        background: #ffffff;
+        @bottom-center {
+          content: "صفحة " counter(page) " من " counter(pages);
+          font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+          font-size: 8.5pt;
+          color: #6d7683;
+        }
+        @bottom-right {
+          content: "استوديو بكسل — الدليل التعليمي";
+          font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+          font-size: 8pt;
+          color: #9aa3ae;
+        }
+      }
+      @page coverpage {
+        margin: 0;
+        @bottom-center {
+          content: none;
+        }
+        @bottom-right {
+          content: none;
+        }
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+        .doc {
+          max-width: none;
+          margin: 0;
+          box-shadow: none;
+        }
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+
+      @media screen {
+        .doc {
+          box-shadow: 0 2px 24px rgba(20, 35, 60, 0.18);
+          margin: 24px auto 60px;
+        }
+      }
+
+      /* ──────────────── الغلاف ──────────────── */
+      .cover {
+        page: coverpage;
+        break-after: page;
+        min-height: 296mm;
+        background: linear-gradient(
+          165deg,
+          var(--navy-deep) 0%,
+          #1d3452 55%,
+          var(--navy-deep) 100%
+        );
+        color: #f3efe3;
+        padding: 24mm 20mm 18mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .cover .kicker {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 10pt;
+        letter-spacing: 0.4px;
+        color: #cfa94f;
+        border-bottom: 1px solid #3c4f6b;
+        padding-bottom: 10px;
+      }
+      .cover h1 {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 30pt;
+        line-height: 1.6;
+        margin: 0;
+        color: #ffffff;
+      }
+      .cover h2 {
+        font-weight: normal;
+        font-size: 14pt;
+        color: #d9cba0;
+        margin: 10px 0 0;
+        line-height: 1.9;
+      }
+      .cover .rule {
+        width: 70mm;
+        height: 3px;
+        background: #cfa94f;
+        margin: 16px 0;
+      }
+      .cover .meta {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 10.5pt;
+        color: #bcc7d6;
+        line-height: 2.3;
+      }
+      .cover .meta b {
+        color: #e9dfc2;
+      }
+      .cover .badge {
+        display: inline-block;
+        border: 1px solid #cfa94f;
+        color: #cfa94f;
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 9.5pt;
+        padding: 4px 16px;
+        border-radius: 99px;
+      }
+      .cover .emblem {
+        margin-bottom: 8mm;
+      }
+
+      /* ──────────────── الفهرس ──────────────── */
+      .toc {
+        break-before: page;
+        padding: 6mm 2mm;
+      }
+      .toc h2,
+      .chapter h2 {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+      }
+      .toc h2 {
+        font-size: 18pt;
+        color: var(--navy);
+        border-bottom: 3px solid var(--gold);
+        padding-bottom: 6px;
+      }
+      .toc .row {
+        display: flex;
+        align-items: baseline;
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 10.5pt;
+        padding: 5px 2px;
+        border-bottom: 1px dotted #b6ad97;
+      }
+      .toc .row .n {
+        color: var(--gold);
+        font-weight: bold;
+        min-width: 26px;
+      }
+      .toc .row .t {
+        font-weight: bold;
+        color: var(--navy);
+      }
+      .toc .row .dots {
+        flex: 1;
+        border-bottom: 1px dotted #a7adb6;
+        margin: 0 8px;
+        transform: translateY(-4px);
+      }
+      .toc .row .s {
+        color: var(--ink-soft);
+        font-size: 9pt;
+      }
+
+      /* ──────────────── الفصول ──────────────── */
+      .chapter {
+        break-before: page;
+        padding: 2mm 1mm;
+      }
+      .chapter h2 {
+        font-size: 16.5pt;
+        color: #ffffff;
+        background: var(--navy);
+        border-right: 7px solid var(--gold);
+        padding: 10px 16px;
+        margin: 0 0 14px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .chapter h3 {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 12.5pt;
+        color: var(--navy);
+        border-bottom: 1.5px solid #ddd3b8;
+        padding-bottom: 3px;
+        margin: 16px 0 6px;
+      }
+      p {
+        margin: 6px 0 10px;
+        text-align: justify;
+      }
+      .lead {
+        font-size: 11.5pt;
+        color: #37424f;
+      }
+      .note {
+        background: var(--tint);
+        border-right: 4px solid var(--accent);
+        padding: 8px 14px;
+        margin: 10px 0;
+        font-size: 10.5pt;
+        break-inside: avoid;
+      }
+      .note.warn {
+        border-right-color: #b3552e;
+        background: #faf1ec;
+      }
+      kbd,
+      code {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 9pt;
+        background: #edf0f4;
+        border: 1px solid #cfd6de;
+        border-radius: 4px;
+        padding: 1px 7px;
+        color: #17406b;
+        direction: ltr;
+        unicode-bidi: embed;
+        white-space: nowrap;
+      }
+      ul,
+      ol {
+        margin: 6px 16px 12px 0;
+        padding-right: 14px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      /* ──────────────── الجداول ──────────────── */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 14px;
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.75;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      caption {
+        caption-side: top;
+        text-align: right;
+        font-weight: bold;
+        color: var(--navy);
+        padding-bottom: 4px;
+        font-size: 10pt;
+      }
+      th {
+        background: var(--navy);
+        color: #f4f1e7;
+        font-weight: bold;
+        padding: 6px 10px;
+        border: 1px solid var(--navy);
+      }
+      td {
+        padding: 5px 10px;
+        border: 1px solid var(--line);
+        background: #ffffff;
+        vertical-align: top;
+      }
+      tbody tr:nth-child(even) td {
+        background: var(--tint);
+      }
+      thead {
+        display: table-header-group;
+      }
+      tr {
+        break-inside: avoid;
+      }
+      table {
+        break-inside: auto;
+      }
+
+      /* عناوين خطوات مرقمة داخل الفقرات */
+      .step {
+        counter-increment: st;
+        position: relative;
+        padding-right: 34px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .step::before {
+        content: counter(st);
+        position: absolute;
+        right: 0;
+        top: 2px;
+        width: 22px;
+        height: 22px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        font-family: "Arial", sans-serif;
+        font-size: 10pt;
+        text-align: center;
+        line-height: 22px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .steps {
+        counter-reset: st;
+      }
+
+      footer.doc-end {
+        break-before: page;
+        padding: 30mm 10mm;
+        text-align: center;
+        color: var(--ink-soft);
+      }
+      footer.doc-end .fin {
+        font-family: "Arial", "Noto Naskh Arabic", sans-serif;
+        color: var(--navy);
+        font-size: 14pt;
+        border-top: 2px solid var(--gold);
+        border-bottom: 2px solid var(--gold);
+        display: inline-block;
+        padding: 8px 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="doc">
+      <!-- ═══════════════════ الغلاف ═══════════════════ -->
+      <div class="cover">
+        <div class="kicker">
+          استوديو بكسل · Pixel Studio — قسم المساعدة والتوثيق
+        </div>
+        <div>
+          <div class="emblem">
+            <svg
+              width="86"
+              height="86"
+              viewBox="0 0 120 120"
+              aria-hidden="true"
+            >
+              <rect
+                x="10"
+                y="24"
+                width="100"
+                height="72"
+                rx="10"
+                fill="none"
+                stroke="#cfa94f"
+                stroke-width="3"
+              />
+              <path d="M26 82l20-28 15 20 11-14 24 22z" fill="#7fa7dd" />
+              <circle cx="82" cy="46" r="9" fill="#cfa94f" />
+            </svg>
+          </div>
+          <h1>الدليل التعليمي لاستخدام<br />استوديو بكسل</h1>
+          <h2>
+            مرجعٌ تطبيقي شامل لتحرير الصور في المتصفح:<br />
+            من فتح الصورة إلى التصدير النهائي، خطوةً بخطوة
+          </h2>
+          <div class="rule"></div>
+          <div class="meta">
+            <div>
+              <b>نوع الوثيقة:</b> دليل مستخدم تعليمي قابل للطباعة والتحويل إلى
+              PDF
+            </div>
+            <div>
+              <b>الإصدار:</b> 1.0.0 &nbsp;·&nbsp; <b>التاريخ:</b> 2026-09-15
+            </div>
+            <div>
+              <b>الفئة المستهدفة:</b> المبتدئون والمتقدمون في تحرير الصور
+            </div>
+            <div>
+              <b>متطلب التشغيل:</b> متصفح ويب حديث فقط — دون تثبيت أي برامج
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="badge"
+            >ستة عشر قسماً · جداول مرجعية · إرشادات حل المشكلات</span
+          >
+        </div>
+      </div>
+
+      <!-- ═══════════════════ الفهرس ═══════════════════ -->
+      <nav class="toc">
+        <h2>فهرس المحتويات</h2>
+        <div class="row">
+          <span class="n">1.</span
+          ><span class="t">مقدمة ونظرة عامة على المنصة</span
+          ><span class="dots"></span><span class="s">الميزات والمتطلبات</span>
+        </div>
+        <div class="row">
+          <span class="n">2.</span
+          ><span class="t">البدء: فتح الصور والتعرف إلى الواجهة</span
+          ><span class="dots"></span><span class="s">فتح · سحب · عيّنة</span>
+        </div>
+        <div class="row">
+          <span class="n">3.</span
+          ><span class="t">تحويل الصيغ وتنزيل النتائج</span
+          ><span class="dots"></span><span class="s">جدول الصيغ</span>
+        </div>
+        <div class="row">
+          <span class="n">4.</span><span class="t">العمليات الهندسية</span
+          ><span class="dots"></span
+          ><span class="s">تدوير · تحجيم · منظور</span>
+        </div>
+        <div class="row">
+          <span class="n">5.</span><span class="t">القصّ التفاعلي</span
+          ><span class="dots"></span><span class="s">نسب جاهزة وتحديد حر</span>
+        </div>
+        <div class="row">
+          <span class="n">6.</span><span class="t">الرسم على الصورة</span
+          ><span class="dots"></span><span class="s">عشر أدوات</span>
+        </div>
+        <div class="row">
+          <span class="n">7.</span><span class="t">تحسينات البكسل</span
+          ><span class="dots"></span
+          ><span class="s">منزلقات · مستويات · منحنيات</span>
+        </div>
+        <div class="row">
+          <span class="n">8.</span
+          ><span class="t">الفلاتر: تنعيم وتحديد وفلاتر فنية</span
+          ><span class="dots"></span><span class="s">جدول الفلاتر</span>
+        </div>
+        <div class="row">
+          <span class="n">9.</span><span class="t">إزالة الخلفية</span
+          ><span class="dots"></span><span class="s">ست خوارزميات</span>
+        </div>
+        <div class="row">
+          <span class="n">10.</span
+          ><span class="t">دمج صورتين والعلامات المائية</span
+          ><span class="dots"></span><span class="s">أنماط المزج</span>
+        </div>
+        <div class="row">
+          <span class="n">11.</span><span class="t">خلفيات المنتجات</span
+          ><span class="dots"></span><span class="s">57 خلفية جاهزة</span>
+        </div>
+        <div class="row">
+          <span class="n">12.</span><span class="t">المؤثرات الإبداعية</span
+          ><span class="dots"></span><span class="s">17 مؤثراً</span>
+        </div>
+        <div class="row">
+          <span class="n">13.</span
+          ><span class="t">معالجة الدفعات وسلاسل العمليات</span
+          ><span class="dots"></span><span class="s">حتى 12 صورة</span>
+        </div>
+        <div class="row">
+          <span class="n">14.</span><span class="t">تحليل الصورة</span
+          ><span class="dots"></span><span class="s">مقاييس واقتراحات</span>
+        </div>
+        <div class="row">
+          <span class="n">15.</span
+          ><span class="t">السجل والمقارنة والاختصارات</span
+          ><span class="dots"></span><span class="s">جدول الاختصارات</span>
+        </div>
+        <div class="row">
+          <span class="n">16.</span
+          ><span class="t">الأسئلة الشائعة وحل المشكلات</span
+          ><span class="dots"></span><span class="s">جدول الأعطال</span>
+        </div>
+        <div class="row">
+          <span class="n">أ.</span
+          ><span class="t">ملحق: النصوص والطبقات وتحديد الكائنات</span
+          ><span class="dots"></span><span class="s">الميزات المتقدمة</span>
+        </div>
+        <div class="row">
+          <span class="n">ج.</span
+          ><span class="t"
+            >ملحق: ترميم الصور القديمة وتنقيح الوجوه ووضع المستندات</span
+          ><span class="dots"></span><span class="s">أدوات متخصصة</span>
+        </div>
+        <div class="row">
+          <span class="n">ب.</span><span class="t">ملحق: حول المطوّر</span
+          ><span class="dots"></span><span class="s">بطاقة التعريف</span>
+        </div>
+      </nav>
+
+      <!-- ═══════════════════ 1 ═══════════════════ -->
+      <section class="chapter">
+        <h2>1. مقدمة ونظرة عامة على المنصة</h2>
+        <p class="lead">
+          «استوديو بكسل» محرر صور يعمل بالكامل داخل متصفح الويب، ويجمع في مساحة
+          عمل واحدة الأدوات التي تتوزع عادة على برامج متعددة: تحويل الصيغ، القصّ
+          والتدوير، التحسينات اللونية، الفلاتر، إزالة الخلفية، الدمج، وخلفيات
+          المنتجات.
+        </p>
+
+        <h3>1.1 أبرز الميزات</h3>
+        <ul>
+          <li>
+            تحويل الصور بين ثماني صيغ شائعة مع التحكم في الجودة والشفافية.
+          </li>
+          <li>
+            إزالة الخلفية بست خوارزميات كلاسيكية مع معاينة القناع قبل التطبيق.
+          </li>
+          <li>
+            الرسم على الصورة بعشر أدوات، منها أداة النص الداعم للغة العربية.
+          </li>
+          <li>دمج صورتين بتسعة عشر نمط مزج، ودمج سلس بلا حواف ظاهرة.</li>
+          <li>
+            مكتبة تضم سبعاً وخمسين خلفية منتجات مولّدة برمجياً داخل الخادم.
+          </li>
+          <li>سجل عمليات يتيح التراجع والإعادة حتى ثلاثين خطوة.</li>
+          <li>معالجة دفعات تصل إلى اثنتي عشرة صورة بسلسلة عمليات واحدة.</li>
+        </ul>
+
+        <h3>1.2 متطلبات التشغيل</h3>
+        <p>
+          لا يتطلب الاستخدام سوى متصفح حديث (كروم أو فايرفوكس أو إدج) واتصال
+          بالخادم المضيف للمنصة. لا تُثبَّت إضافات ولا تُرفَع الصور إلى خدمات
+          خارجية؛ فكل المعالجة تجري على الخادم الخاص بالمنصة وتُعاد النتيجة خلال
+          ثوانٍ.
+        </p>
+
+        <h3>1.3 ملاحظات قبل البدء</h3>
+        <div class="note">
+          تُحفَظ كل العمليات في «سجل العمليات» يسار الشاشة، ويمكن الرجوع إلى أي
+          خطوة سابقة بالنقر عليها، لذا يُنصح بتجربة الأدوات بحرية دون خشية فقدان
+          العمل.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 2 ═══════════════════ -->
+      <section class="chapter">
+        <h2>2. البدء: فتح الصور والتعرف إلى الواجهة</h2>
+
+        <h3>2.1 طرق فتح صورة</h3>
+        <div class="steps">
+          <p class="step">
+            النقر على زر «فتح صورة» في الشريط العلوي واختيار ملف من الجهاز.
+          </p>
+          <p class="step">سحب ملف صورة وإفلاته مباشرة فوق مساحة العمل.</p>
+          <p class="step">
+            النقر على زر «تجربة» لتحميل عيّنة جاهزة مولّدة داخل المتصفح (منتج
+            على خلفية استوديو)، وهي مناسبة لتجربة إزالة الخلفية فوراً.
+          </p>
+        </div>
+        <div class="note">
+          عند إفلات أكثر من صورة دفعة واحدة تُحوَّل الصور تلقائياً إلى لوحة
+          «معالجة دفعات».
+        </div>
+
+        <h3>2.2 مناطق الواجهة</h3>
+        <table>
+          <caption>
+            جدول 2‑1: مناطق الواجهة الأربع
+          </caption>
+          <thead>
+            <tr>
+              <th>المنطقة</th>
+              <th>الموضع</th>
+              <th>الوظيفة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>الشريط العلوي</td>
+              <td>أعلى الشاشة</td>
+              <td>فتح، تنزيل، مقارنة، تراجع/إعادة، تكبير وملاءمة.</td>
+            </tr>
+            <tr>
+              <td>لوحات الأدوات</td>
+              <td>يمين الشاشة</td>
+              <td>اثنتا عشرة لوحة قابلة للطي، كل لوحة لمجال أدوات.</td>
+            </tr>
+            <tr>
+              <td>مساحة العمل</td>
+              <td>المنتصف</td>
+              <td>عرض الصورة وطبقة التفاعل (قصّ، رسم، منظور).</td>
+            </tr>
+            <tr>
+              <td>الشريط الجانبي</td>
+              <td>يسار الشاشة</td>
+              <td>سجل العمليات بمصغّراته ومعلومات الصورة.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <b>طي الأشرطة الجانبية وتحجيمها:</b> على الحافة الداخلية لكل شريط
+          (الأدوات يميناً والسجل يساراً) مقبض رأسي: <b>اسحبه</b> لتكبير عرض
+          الشريط أو تصغيره، وانقر <b>زره</b> لطي الشريط تماماً (قضيب رفيع) أو
+          إعادته، و<b>نقرة مزدوجة</b> عليه تعيد العرض الافتراضي. يُحفظ العرض
+          وحالة الطي في المتصفح فتبقى كما تركتها.
+        </div>
+        <div class="note">
+          <b>الوضع الليلي/النهاري:</b> زر الهلال/الشمس أعلى الشاشة يبدّل المظهر
+          كاملاً ويُحفظ اختيارك. و<b>قائمة الثلاث نقاط</b> (⋮) تجمع: الدليل
+          التعليمي، تحميل ملف الدليل، إعادة الجولة الترحيبية، وبطاقة «حول
+          المطوّر». وعند أول زيارة تُفتح <b>جولة ترحيبية</b> من ست خطوات تُبرز
+          أجزاء الواجهة ببطاقات شرح (تالي/سابق/تخطّي).
+        </div>
+
+        <h3>2.3 شريط الحالة</h3>
+        <p>
+          أسفل مساحة العمل يعرض: اسم الملف، الأبعاد، الحجم التقريبي، الأداة
+          النشطة، ورسالة آخر عملية مع زمن تنفيذها — وهو مرجع سريع للتأكد من نجاح
+          كل خطوة.
+        </p>
+      </section>
+
+      <!-- ═══════════════════ 3 ═══════════════════ -->
+      <section class="chapter">
+        <h2>3. تحويل الصيغ وتنزيل النتائج</h2>
+
+        <h3>3.1 تحويل الصيغة</h3>
+        <div class="steps">
+          <p class="step">افتح لوحة «تحويل الصيغة» (أعلى لوحات الأدوات).</p>
+          <p class="step">
+            اختر الصيغة الوجهة من القائمة، وحرّك منزلق الجودة للصيغ ذات الفقد
+            (JPEG وWEBP وAVIF).
+          </p>
+          <p class="step">
+            حدّد لون الخلفية المطلوب عند تحويل صورة شفافة إلى صيغة لا تدعم
+            الشفافية، وفعّل «الحفاظ على الشفافية» أو «نقل EXIF» عند الحاجة.
+          </p>
+          <p class="step">
+            انقر «تحويل الصيغة»؛ تظهر النتيجة في مساحة العمل وتُسجَّل في السجل.
+          </p>
+        </div>
+
+        <h3>3.2 الصيغ المدعومة عند التنزيل</h3>
+        <table>
+          <caption>
+            جدول 3‑1: صيغ التنزيل وخصائصها
+          </caption>
+          <thead>
+            <tr>
+              <th>الصيغة</th>
+              <th>الشفافية</th>
+              <th>الاستعمال الأنسب</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PNG</td>
+              <td>مدعومة</td>
+              <td>الشعارات ولقطات الواجهة عالية الجودة.</td>
+            </tr>
+            <tr>
+              <td>JPEG</td>
+              <td>غير مدعومة</td>
+              <td>الصور الفوتوغرافية للحجم الأصغر.</td>
+            </tr>
+            <tr>
+              <td>WEBP</td>
+              <td>مدعومة</td>
+              <td>الويب الحديث: جودة عالية بحجم صغير.</td>
+            </tr>
+            <tr>
+              <td>AVIF</td>
+              <td>مدعومة</td>
+              <td>أقصى ضغط مع الحفاظ على التفاصيل.</td>
+            </tr>
+            <tr>
+              <td>TIFF</td>
+              <td>مدعومة</td>
+              <td>الأرشفة والطباعة المهنية.</td>
+            </tr>
+            <tr>
+              <td>BMP</td>
+              <td>غير مدعومة</td>
+              <td>التوافق مع أنظمة قديمة.</td>
+            </tr>
+            <tr>
+              <td>GIF</td>
+              <td>حدية</td>
+              <td>الرسوم البسيطة قليلة الألوان.</td>
+            </tr>
+            <tr>
+              <td>ICO</td>
+              <td>مدعومة</td>
+              <td>أيقونات المواقع (تُنتَج بعدة مقاسات).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3.3 نافذة التنزيل</h3>
+        <p>
+          زر «تنزيل» في الشريط العلوي (أو الاختصار <kbd>Ctrl+S</kbd>) يفتح نافذة
+          يُختار فيها: الصيغة، الجودة، واسم الملف — ويعرض أبعاد الصورة وحجمها
+          الحالي قبل الاعتماد.
+        </p>
+      </section>
+
+      <!-- ═══════════════════ 4 ═══════════════════ -->
+      <section class="chapter">
+        <h2>4. العمليات الهندسية</h2>
+
+        <h3>4.1 التدوير والقلب</h3>
+        <ul>
+          <li>
+            تدوير حرّ: حرّك منزلق الزاوية (−180 إلى 180) وفعّل «توسيع اللوحة»
+            لإظهار الزوايا كاملة، أو اتركه ملغًى لاقتصاصها.
+          </li>
+          <li>
+            زر «تدوير» يطبّق الزاوية المختارة، وتدويرات 90° المتاحة تحفظ الجودة
+            بلا فقد.
+          </li>
+        </ul>
+
+        <h3>4.2 التحجيم</h3>
+        <p>
+          أدخل العرض والارتفاع يدوياً مع قفل النسبة افتراضياً، أو اختر وضعاً:
+          نسبة مئوية، احتواء داخل مقاس، تمديد، أو أطول ضلع. ويُختار أسلوب إعادة
+          أخذ العينات (Lanczos للجودة العالية عند التصغير).
+        </p>
+
+        <h3>4.3 الإطارات والظل والحواف</h3>
+        <ul>
+          <li>«إطار»: حدود بلون ونمط (مصمت، متقطع، منقّط) وسُمك مختار.</li>
+          <li>«ظل سقوط»: ظل ناعم حول الصورة قابل للضبط شفافيةً وتمويهاً.</li>
+          <li>
+            «منظور»: اسحب الزوايا الأربع على الصورة لتصحيح ميلان لقطة مستند.
+          </li>
+          <li>«تصحيح الميل»: تصحيح تلقائي لمستندات ممسوحة ضوئياً.</li>
+        </ul>
+        <div class="note warn">
+          العمليات الهندسية تغيّر أبعاد اللوحة؛ راقب شريط الحالة للتأكد من
+          المقاس الناتج قبل المتابعة.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 5 ═══════════════════ -->
+      <section class="chapter">
+        <h2>5. القصّ التفاعلي</h2>
+        <div class="steps">
+          <p class="step">
+            افتح لوحة «القصّ التفاعلي»؛ يتحول المؤشر فوق الصورة إلى أداة تحديد.
+          </p>
+          <p class="step">
+            اسحب بالمؤشر لرسم مستطيل القصّ، أو اختر نسبة جاهزة (1:1، 4:5، 16:9…)
+            فيُقيَّد التحديد عليها.
+          </p>
+          <p class="step">
+            يمكن سحب المستطيل أو تغيير مقاسه بمقابضه قبل الاعتماد.
+          </p>
+          <p class="step">
+            انقر «تطبيق القصّ» للتنفيذ، أو «إلغاء» للتراجع عن التحديد.
+          </p>
+        </div>
+        <p>
+          زر «كل الصورة» يعيد التحديد إلى كامل اللوحة، ويعرض السطر الإرشادي
+          أبعاد منطقة القصّ لحظياً.
+        </p>
+      </section>
+
+      <!-- ═══════════════════ 6 ═══════════════════ -->
+      <section class="chapter">
+        <h2>6. الرسم على الصورة</h2>
+        <p>
+          تُرسم الإضافات على طبقة مستقلة فوق الصورة فلا تُتلف الأصل حتى اعتمادها
+          بزر «تثبيت الرسم».
+        </p>
+
+        <h3>6.1 أدوات الرسم</h3>
+        <table>
+          <caption>
+            جدول 6‑1: أدوات الرسم العشر
+          </caption>
+          <thead>
+            <tr>
+              <th>الأداة</th>
+              <th>الوظيفة</th>
+              <th>الأداة</th>
+              <th>الوظيفة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>فرشاة</td>
+              <td>رسم حر بحواف ناعمة.</td>
+              <td>مستطيل</td>
+              <td>أشكال مستطيلة (إطار أو تعبئة).</td>
+            </tr>
+            <tr>
+              <td>قلم</td>
+              <td>رسم حر دقيق الحواف.</td>
+              <td>دائرة</td>
+              <td>أشكال بيضاوية.</td>
+            </tr>
+            <tr>
+              <td>رذاذ</td>
+              <td>تأثير بخّاخ متدرج.</td>
+              <td>نص</td>
+              <td>كتابة نص — يدعم العربية.</td>
+            </tr>
+            <tr>
+              <td>ممحاة</td>
+              <td>إزالة ما رُسم على الطبقة.</td>
+              <td>منتقي لون</td>
+              <td>التقاط لون من الصورة.</td>
+            </tr>
+            <tr>
+              <td>خط</td>
+              <td>خط مستقيم بين نقطتين.</td>
+              <td>سهم</td>
+              <td>سهم برأس تلقائي.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>6.2 خصائص الأداة</h3>
+        <ul>
+          <li>اللون: من المنتقي أو من العينات الجاهزة.</li>
+          <li>الحجم والشفافية: منزلقان مستقلان يؤثران في الأداة النشطة.</li>
+          <li>
+            أداة النص: اكتب العبارة ثم انقر الموضع المطلوب على الصورة لوضعها.
+          </li>
+          <li>«تراجع الرسم» يلغي آخر ضربة، و«مسح الرسم» يفرغ الطبقة كاملة.</li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════ 7 ═══════════════════ -->
+      <section class="chapter">
+        <h2>7. تحسينات البكسل</h2>
+
+        <h3>7.1 المنزلقات اللونية</h3>
+        <p>
+          تسعة منزلقات تضبط: السطوع، التباين، التشبّع، الاهتزاز، التعريض، غاما،
+          الحرارة، الصبغة، والتدرج. فعّل «معاينة فورية» لترى أثر السحب مباشرة
+          قبل التطبيق بزر «تطبيق التعديلات».
+        </p>
+
+        <h3>7.2 أدوات متقدمة</h3>
+        <ul>
+          <li>
+            توازن الأبيض: اختر إعداداً جاهزاً (ظل، سحاب، فلوري…) لمعادلة إضاءة
+            المشهد.
+          </li>
+          <li>
+            المستويات: منزلقات الأسود وغاما والأبيض لشدّ المدى الديناميكي.
+          </li>
+          <li>
+            المنحنيات: اسحب نقاطاً على قناة اللون المرادة (RGB/أحمر/أخضر/أزرق)
+            لبناء منحنى تدرّج مخصص.
+          </li>
+          <li>
+            أزرار سريعة: مستويات تلقائية، تباين تلقائي، عكس الألوان، تدرج رمادي،
+            بوسترة، وعتبة Otsu.
+          </li>
+        </ul>
+        <div class="note">
+          تُطبَّق الحسابات بدقة عددية عالية ثم تُقرَّب مرة واحدة عند الحفظ،
+          فتبقى النتائج أنظف من التطبيق المتتالي في برامج أقل عناية.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 8 ═══════════════════ -->
+      <section class="chapter">
+        <h2>8. الفلاتر: تنعيم وتحديد وفلاتر فنية</h2>
+
+        <h3>8.1 التنعيم (إزالة الضوضاء والتمويه)</h3>
+        <table>
+          <caption>
+            جدول 8‑1: أوضاع التنعيم والاستعمال الأنسب
+          </caption>
+          <thead>
+            <tr>
+              <th>الوضع</th>
+              <th>الاستعمال الأنسب</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ثنائي الجانب (Bilateral)</td>
+              <td>تنعيم البشرة مع بقاء الحواف حادة.</td>
+            </tr>
+            <tr>
+              <td>غاوسي</td>
+              <td>تمويه عام ناعم ومتدرج.</td>
+            </tr>
+            <tr>
+              <td>متوسط (Median)</td>
+              <td>إزالة النقط الشاذة والخدوش.</td>
+            </tr>
+            <tr>
+              <td>NL‑Means</td>
+              <td>أعلى جودة لإزالة الضوضاء مع حفظ التفاصيل.</td>
+            </tr>
+            <tr>
+              <td>حركة / شعاعي / تكبير</td>
+              <td>تمويهات اتجاهية لأغراض فنية.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>8.2 التحديد وتقليل الضوضاء</h3>
+        <ul>
+          <li>
+            «تحديد» بأوضاع: Unsharp (الافتراضي)، قناع، تمرير عالٍ، Laplacian —
+            مع منزلق قوة.
+          </li>
+          <li>«تقليل الضوضاء» بوضع NL‑Means للقطات عالية الحساسية (ISO).</li>
+          <li>«تنعيم الأسطح» لمظهر مصقول متجانس.</li>
+        </ul>
+
+        <h3>8.3 الفلاتر الفنية</h3>
+        <p>
+          شبكة رقائق بنقرة واحدة: سيبيا، تدرج رمادي درامي، نحت (Emboss)، زيتي،
+          كشف الحواف، نيون، وغيرها — تُطبَّق فور النقر وتُسجَّل خطوةً مستقلة.
+        </p>
+      </section>
+
+      <!-- ═══════════════════ 9 ═══════════════════ -->
+      <section class="chapter">
+        <h2>9. إزالة الخلفية</h2>
+
+        <h3>9.1 الخوارزميات المتاحة</h3>
+        <table>
+          <caption>
+            جدول 9‑1: طرق إزالة الخلفية ومتى تُختار
+          </caption>
+          <thead>
+            <tr>
+              <th>الطريقة</th>
+              <th>متى تُختار</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>تلقائي</td>
+              <td>الخيار الأول دائماً؛ يجرّب ويرشّح الأفضل.</td>
+            </tr>
+            <tr>
+              <td>GrabCut</td>
+              <td>مشاهد معقدة الحواف مع صبر على زمن أطول.</td>
+            </tr>
+            <tr>
+              <td>مفتاح لوني</td>
+              <td>خلفية أحادية اللون (صور الاستوديو).</td>
+            </tr>
+            <tr>
+              <td>فيضان حدودي</td>
+              <td>خلفية متجانسة تلامس حواف الصورة.</td>
+            </tr>
+            <tr>
+              <td>قطع حوافي</td>
+              <td>حواف موضوع واضحة التباين.</td>
+            </tr>
+            <tr>
+              <td>K‑Means</td>
+              <td>فصل لوني عنقودي لخلفيات مميزة اللون.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>9.2 سير العمل الموصى به</h3>
+        <div class="steps">
+          <p class="step">
+            افتح لوحة «إزالة الخلفية» واترك الطريقة «تلقائي» في أول تجربة.
+          </p>
+          <p class="step">
+            للمشاهد الصعبة انقر «تحديد المستطيل» واسحب حول الموضوع لتوجيه
+            خوارزمية GrabCut.
+          </p>
+          <p class="step">انقر «معاينة القناع» لرؤية ما سيُقصّ قبل التنفيذ.</p>
+          <p class="step">
+            اضبط «تنعيم الحواف» و«إزالة النمش» لتحسين حافة النتيجة.
+          </p>
+          <p class="step">
+            نفّذ بزر التشغيل؛ تظهر الصورة بخلفية شفافة (رقعة شطرنجية).
+          </p>
+        </div>
+        <div class="note">
+          بعد الإزالة يمكن مباشرة تركيب الصورة على أي خلفية من لوحة «خلفيات
+          المنتجات» — وهو سير عمل تصوير المنتجات الكامل.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 10 ═══════════════════ -->
+      <section class="chapter">
+        <h2>10. دمج صورتين والعلامات المائية</h2>
+
+        <h3>10.1 تحميل الصورة الثانية</h3>
+        <p>
+          في لوحة «دمج صورتين» اسحب الصورة الثانية أو اخترها بزر التحميل؛ تظهر
+          مصغّرتها تأكيداً، وتظل الصورة الأولى هي الأساس.
+        </p>
+
+        <h3>10.2 أنماط المزج</h3>
+        <p>
+          تسعة عشر نمطاً مصنفة ست عائلات: عادية، ضربية (Multiply)، جمعية
+          (Screen)، تباينية (Overlay)، فرقية (Difference)، ولونية
+          (Hue/Saturation…). اختر النمط والموضع (توسيط، زوايا…) ثم «دمج». ومنزلق
+          الشفافية يخلط الأثر تدريجياً.
+        </p>
+
+        <h3>10.3 أدوات التركيب الخاصة</h3>
+        <ul>
+          <li>
+            «دمج سلس»: نقل الموضوع إلى الثانية بإذابة الحواف (للافتات المركّبة).
+          </li>
+          <li>«صورة داخل صورة»: إدراج مصغّرة بظل في إحدى الزوايا.</li>
+          <li>«تعريض مزدوج»: تراكب فني شفاف بين الصورتين.</li>
+          <li>
+            «تراكيب»: صفّ الصورتين جنباً أو عمودياً أو شبكةً بفواصل ملونة.
+          </li>
+          <li>
+            «علامة مائية»: نص — عربي أو لاتيني — بلون وحجم وشفافية وموضع مختار.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════ 11 ═══════════════════ -->
+      <section class="chapter">
+        <h2>11. خلفيات المنتجات</h2>
+
+        <h3>11.1 المكتبة</h3>
+        <p>
+          سبع وخمسون خلفية مولّدة برمجياً داخل الخادم في خمس فئات: استوديو
+          (إضاءات ناعمة)، تدرّجات، خامات (رخام وخشب وقماش)، إبداعية (بوكيه
+          وأشعة)، وألوان سادة. تُستعرض مصغّراتها وتُصفَّى بأزرار الفئات.
+        </p>
+
+        <h3>11.2 تركيب المنتج</h3>
+        <div class="steps">
+          <p class="step">
+            أزل خلفية المنتج أولاً (القسم 9) للحصول على شفافية نظيفة.
+          </p>
+          <p class="step">
+            انقر الخلفية المرغوبة في الشبكة لتحديدها (إطار ذهبي).
+          </p>
+          <p class="step">
+            اضبط «حجم المنتج» والموضع (منتصف/أسفل/أعلى) وفعّل الظل أو الانعكاس.
+          </p>
+          <p class="step">
+            انقر «تركيب على الخلفية المختارة»؛ أو «تنزيل الخلفية فقط» لأخذها
+            فارغة.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 12 ═══════════════════ -->
+      <section class="chapter">
+        <h2>12. المؤثرات الإبداعية</h2>
+        <p>
+          سبعة عشر مؤثراً بنقرة واحدة، منها: سينمائي (تقسيم لوني دافئ/بارد)،
+          سيبيا، ثنائي اللون، أبيض/أسود درامي، كاليدوسكوب متماثل، خلل رقمي
+          (Glitch)، إطار ظلال (Vignette)، انعكاس مرآة، وإزاحة لونية.
+        </p>
+        <p>
+          منزلق «قوة المؤثر» (0–200٪) يخلط النتيجة مع الأصل، فيمكن معايرة الجرعة
+          من لمسة خفيفة إلى أثر كامل دون إعادة التطبيق.
+        </p>
+        <div class="note">
+          كل مؤثر يُسجَّل خطوة مستقلة في السجل، فيسهل مقارنة نسختين منه بزر
+          «مقارنة».
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 13 ═══════════════════ -->
+      <section class="chapter">
+        <h2>13. معالجة الدفعات وسلاسل العمليات</h2>
+
+        <h3>13.1 متى تُستخدم؟</h3>
+        <p>
+          عند الحاجة إلى تطبيق التسلسل نفسه (تحجيم ← إزالة خلفية ← خلفية رخام ←
+          علامة مائية…) على مجموعة صور: متاجر تعرض منتجاتها، أو أرشيف يحتاج
+          توحيد المقاسات.
+        </p>
+
+        <h3>13.2 سير العمل</h3>
+        <div class="steps">
+          <p class="step">
+            أضف حتى اثنتي عشرة صورة بالسحب أو بزر الاختيار في لوحة «معالجة
+            دفعات».
+          </p>
+          <p class="step">
+            ابنِ السلسلة بالنقر على رقائق الخطوات الجاهزة (22 خطوة متاحة).
+          </p>
+          <p class="step">
+            رتّب الخطوات بأزرار الأسهم الأعلى/الأسفل، واحذف ما لا يلزم.
+          </p>
+          <p class="step">اختر صيغة الإخراج ثم «تشغيل الدفعة».</p>
+          <p class="step">
+            تظهر النتائج مصغّراتٍ مع زمن كل صورة وزر تنزيل منفصل لكل ناتج.
+          </p>
+        </div>
+        <div class="note warn">
+          تُنفَّذ السلسلة على كل صورة باستقلال؛ فشل صورة واحدة (ملف تالف مثلاً)
+          لا يوقف بقية الدفعة ويُعلَّم «فشل» في صفّها.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 14 ═══════════════════ -->
+      <section class="chapter">
+        <h2>14. تحليل الصورة</h2>
+        <p>
+          زر «تحليل الصورة الحالية» يعرض تقريراً رقمياً يساعد على اتخاذ قرارات
+          التحرير:
+        </p>
+        <ul>
+          <li>
+            الإضاءة والتباين والمدى الديناميكي: هل تحتاج الصورة تعريضاً أو
+            مستويات؟
+          </li>
+          <li>الإنتروبيا وكثافة الحواف: مقدار التفاصيل في المشهد.</li>
+          <li>مقياس الحدّة: يكشف الصور الضبابية ويقترح مقدار التحديد.</li>
+          <li>
+            الألوان السائدة بنسبها: مرجع لمواءمة الخلفيات والعلامات المائية.
+          </li>
+          <li>المدرّج التكراري: توزيع الظلال والأنصاف والإضاءات.</li>
+          <li>
+            اقتراحات تحرير بقيم مقترحة جاهزة للتطبيق في لوحة «تحسينات البكسل».
+          </li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════ 15 ═══════════════════ -->
+      <section class="chapter">
+        <h2>15. السجل والمقارنة والاختصارات</h2>
+
+        <h3>15.1 السجل والتراجع</h3>
+        <p>
+          يحفظ السجل آخر ثلاثين خطوة بمصغّراتها؛ انقر أي مدخل للقفز إليه،
+          واستخدم زرّي التراجع/الإعادة أو الاختصارين أدناه. أي تعديل جديد بعد
+          الرجوع يحذف الخطوات «المستقبلية» كما في المحررات الاحترافية.
+        </p>
+        <p>
+          التراجع <b>يعود إلى الصورة السابقة دون إنشاء صورة جديدة</b> — وتُخفى
+          الخطوات التي بعد الموضع الحالي من القائمة. ولكل صورة في القائمة زر حذف
+          <b>(×)</b> يظهر عند المرور عليها لحذف تلك الخطوة من السجل نهائياً (لا
+          يمكن حذف آخر خطوة متبقية).
+        </p>
+        <div class="note">
+          عمليات الطبقات (إخفاء/ترتيب/حذف طبقة) وتعديل النصوص المحددة تتم في
+          المكان: تعود الصورة إلى شكلها السابق دون إضافة نسخة جديدة إلى السجل.
+        </div>
+
+        <h3>15.2 المقارنة قبل/بعد</h3>
+        <p>
+          زر «مقارنة» يُظهر الأصل فوق النتيجة بمقبض سحب؛ حرّكه لرؤية الفرق
+          موضعياً، وانقر الزر مجدداً للخروج من الوضع.
+        </p>
+
+        <h3>15.3 جدول الاختصارات</h3>
+        <table>
+          <caption>
+            جدول 15‑1: اختصارات لوحة المفاتيح
+          </caption>
+          <thead>
+            <tr>
+              <th>الاختصار</th>
+              <th>الوظيفة</th>
+              <th>الاختصار</th>
+              <th>الوظيفة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Ctrl+Z</kbd></td>
+              <td>تراجع</td>
+              <td><kbd>0</kbd></td>
+              <td>ملاءمة الشاشة</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl+Y</kbd></td>
+              <td>إعادة</td>
+              <td><kbd>+</kbd> / <kbd>-</kbd></td>
+              <td>تكبير / تصغير</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl+S</kbd></td>
+              <td>فتح نافذة التنزيل</td>
+              <td><kbd>Esc</kbd></td>
+              <td>إنهاء الوضع النشط/إغلاق النوافذ</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl+O</kbd></td>
+              <td>فتح صورة</td>
+              <td>عجلة الفأرة</td>
+              <td>تكبير حول المؤشر</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════ 16 ═══════════════════ -->
+      <section class="chapter">
+        <h2>16. الأسئلة الشائعة وحل المشكلات</h2>
+
+        <table>
+          <caption>
+            جدول 16‑1: الأعراض الشائعة وأسبابها وحلولها
+          </caption>
+          <thead>
+            <tr>
+              <th style="width: 31%">العرض</th>
+              <th style="width: 31%">السبب المحتمل</th>
+              <th style="width: 38%">الحل</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>رسالة «الخادم غير متاح» عند الفتح.</td>
+              <td>توقف الخادم الخلفي.</td>
+              <td>
+                أعد تشغيل الخادم بالأمر <code>bash scripts/run.sh</code> ثم حدّث
+                الصفحة.
+              </td>
+            </tr>
+            <tr>
+              <td>نتيجة إزالة الخلفية تشمل أجزاء من الموضوع.</td>
+              <td>طريقة غير ملائمة للمشهد.</td>
+              <td>
+                جرّب «العصا السحرية» بنقرة على الكائن مع ضبط التسامح، أو «مفتاح
+                لوني» لخلفيات أحادية، أو وجّه GrabCut بمستطيل حول الموضوع.
+              </td>
+            </tr>
+            <tr>
+              <td>حافة مقصصة مسنّنة بعد إزالة الخلفية.</td>
+              <td>تنعيم الحواف صفري.</td>
+              <td>ارفع «تنعيم الحواف» إلى 1–2 وأعد التنفيذ.</td>
+            </tr>
+            <tr>
+              <td>خلفية سوداء بعد التحويل إلى JPEG.</td>
+              <td>شفافية أُسقطت بلا لون خلفي.</td>
+              <td>اختر لون خلفية (أبيض عادة) في لوحة التحويل قبل JPEG.</td>
+            </tr>
+            <tr>
+              <td>زر «تطبيق التعديلات» لا يفعل شيئاً.</td>
+              <td>كل المنزلقات على قيمها الافتراضية.</td>
+              <td>حرّك منزلقاً واحداً على الأقل ثم طبّق.</td>
+            </tr>
+            <tr>
+              <td>بطء ظاهر أثناء سحب منزلقات التحسين.</td>
+              <td>صورة كبيرة جداً مع معاينة فورية.</td>
+              <td>أوقف «معاينة فورية» وطبّق عند الانتهاء.</td>
+            </tr>
+            <tr>
+              <td>ملف ICO أصغر من المقاس المطلوب.</td>
+              <td>طبيعة الصيغة متعددة المقاسات.</td>
+              <td>
+                سلوك متوقع؛ يُنتَج الملف بعدة مقاسات ويعتمد المتصفح المناسب
+                منها.
+              </td>
+            </tr>
+            <tr>
+              <td>ضاعت خطوات بعد تجربة جديدة.</td>
+              <td>تعديل جديد يحذف الخطوات المستقبلية.</td>
+              <td>هذه سياسة السجل القياسية؛ خطّط للتجارب على نسخ منفصلة.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>16.2 نصائح ختامية</h3>
+        <ul>
+          <li>
+            رتّب عملك بالترتيب المهني: قصّ ← إزالة خلفية ← تحسينات ← مؤثر ←
+            تصدير.
+          </li>
+          <li>
+            اعتمد «تلقائي» نقطة بداية، ثم تخصّص عند الحاجة؛ فهو يختار الأفضل
+            قياسياً.
+          </li>
+          <li>صدّر PNG للأعمال الشفافة وWEBP للنشر على الويب.</li>
+          <li>
+            استخدم «تحليل الصورة» قبل التحسينات لتعرف ما تحتاجه الصورة فعلاً.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════ ملحق أ ═══════════════════ -->
+      <section class="chapter">
+        <h2>ملحق أ. النصوص والطبقات وتحديد الكائنات</h2>
+
+        <h3>أ.1 كتابة النصوص وإضافتها</h3>
+        <div class="steps">
+          <p class="step">
+            افتح لوحة «النصوص على الصورة» واكتب العبارة (تدعم العربية).
+          </p>
+          <p class="step">
+            اختر الخط واللون والحجم والميل والشفافية، وفعّل عريض/حدود/ظلّاً حسب
+            الذوق.
+          </p>
+          <p class="step">
+            انقر «انقر لوضع النص على الصورة» ثم انقر الموضع المطلوب؛ يُضاف النص
+            طبقةً مستقلة ويُفتح <b>محرر النص داخل الصورة</b> فوراً لتكتب مباشرة
+            في مكانه.
+          </p>
+          <p class="step">
+            أو فعّل «منطقة نص (رسم صندوق)» ثم اسحب مستطيلاً على الصورة: يُلفّ
+            النص داخل المنطقة تلقائياً ويصغر الخط حتى يfit داخلها.
+          </p>
+          <p class="step">
+            اختر محاذاة النص داخل الصندوق: أفقية (يمين/وسط/يسار) ورأسية
+            (أعلى/وسط/أسفل) من صفّي أزرار المحاذاة في اللوحة.
+          </p>
+        </div>
+
+        <h3>أ.2 اختيار نص مكتوب وتعديله</h3>
+        <div class="steps">
+          <p class="step">
+            من لوحة «الطبقات» انقر زر ✎ بجانب طبقة النص؛ يُحاط النص بإطار تحديد
+            وتتعبّأ لوحة النصوص بخصائصه.
+          </p>
+          <p class="step">
+            اسحب النص من داخله لتحريكه، أو اسحب المقبض ◢ لتحجيمه.
+          </p>
+          <p class="step">
+            عدّل الخصائص (العبارة/الخط/اللون…) ثم انقر «تحديث النص المحدد»؛ يتم
+            التحديث في المكان دون إنشاء نسخة جديدة في السجل. (Esc لإلغاء
+            التحديد)
+          </p>
+        </div>
+
+        <h3>أ.3 نظام الطبقات</h3>
+        <p>
+          الصورة الأصل طبقة أساس مقفلة، وكل إضافة (رسم مثبّت كطبقة، نص، كائن
+          مستخرج) طبقة مستقلة. لوحة «الطبقات» تتيح لكل طبقة: الإظهار/الإخفاء،
+          رفعها أو خفضها في الترتيب، وحذفها وحدها دون مساس ببقية العمل، مع زرّي
+          «دمج الكل بالصورة» و«حذف الكل». عمليات الإخفاء والترتيب والحذف تتم
+          <b>في المكان</b>: تعود الصورة إلى شكلها السابق دون إنشاء نسخة جديدة في
+          السجل.
+        </p>
+        <table>
+          <caption>
+            جدول أ‑1: مصادر الطبقات
+          </caption>
+          <thead>
+            <tr>
+              <th>المصدر</th>
+              <th>الزر المستخدم</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>رسم حر</td>
+              <td>لوحة الرسم ← «تثبيت الرسم كطبقة مستقلة».</td>
+            </tr>
+            <tr>
+              <td>نص</td>
+              <td>لوحة النصوص ← الوضع ثم النقر على الصورة.</td>
+            </tr>
+            <tr>
+              <td>كائن مستخرج</td>
+              <td>لوحة «تحديد الكائنات» ← «استخراج الكائن كطبقة».</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>أ.4 تحديد الكائنات</h3>
+        <table>
+          <caption>
+            جدول أ‑2: طرق التحديد الخمس
+          </caption>
+          <thead>
+            <tr>
+              <th>الطريقة</th>
+              <th>كيفية الاستخدام</th>
+              <th>متى تُفضَّل</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>عصا سحرية</td>
+              <td>
+                انقر على الكائن فيُنتقى بلونه فوراً (معاينة خضراء)؛ نقرة أخرى
+                تضيف منطقة، ومع Shift تستثني. اضبط «تسامح العصا» حسب تشابه
+                الألوان.
+              </td>
+              <td>كائن بلون متماسك مختلف عن خلفيته — الأسرع والأدق غالباً.</td>
+            </tr>
+            <tr>
+              <td>تلقائي</td>
+              <td>نقرة واحدة على «استخراج الكائن كطبقة».</td>
+              <td>مشهد بسيط بكائن بارز.</td>
+            </tr>
+            <tr>
+              <td>مستطيل</td>
+              <td>اسحب مستطيلاً حول الكائن ثم الاستخراج.</td>
+              <td>كائن محدد الحواف.</td>
+            </tr>
+            <tr>
+              <td>نقاط</td>
+              <td>نقرات خضراء على الجسم، ومع Shift حمراء على الخلفية.</td>
+              <td>توجيه دقيق بنتائج نظيفة.</td>
+            </tr>
+            <tr>
+              <td>يدوي</td>
+              <td>فرشاة ترسم فوق الكائن وممحاة تستثني ما أخطأت فيه.</td>
+              <td>حواف معقدة يخطئ فيها التلقائي.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          في الطرق الموجَّهة تُمرَّر المدخلات (نقاط/قناع يدوي/مستطيل) إلى
+          خوارزمية GrabCut كتلميحات مؤكدة ثم يُصقل المحيط بتمرير حدودي إضافي،
+          فيجتمع تحكم المستخدم مع دقة الخوارزمية. أما العصا السحرية فتعمل بنمو
+          المحررات الكلاسيكية: نمو فيضي من نقطة النقر بمسافة لونية في فضاء LAB
+          ضمن «التسامح» المحدد.
+        </div>
+
+        <h3>أ.5 ضبط دقة الاستخراج</h3>
+        <p>لنتيجة أدق عند الحواف الصعبة (شعر، وبر، انحناءات دقيقة):</p>
+        <table>
+          <caption>
+            جدول أ‑3: أدوات الدقة في لوحة «تحديد الكائنات»
+          </caption>
+          <thead>
+            <tr>
+              <th>الأداة</th>
+              <th>دورها</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>تسامح العصا</td>
+              <td>
+                مدى تشابه الألوان الذي تضمّه العصا السحرية (5–100): ارفعه
+                للألوان المتقاربة واخفضه للدقة.
+              </td>
+            </tr>
+            <tr>
+              <td>دقة التحديد (تكرارات)</td>
+              <td>
+                عدد جولات GrabCut (3–20): كلما زادت تحسّن التقسيم على حساب زمن
+                أطول قليلاً.
+              </td>
+            </tr>
+            <tr>
+              <td>تحسين الحواف الذكي</td>
+              <td>
+                صقل ألفا القناع بمرشّح موجّه (Guided Filter) يطابق حافة القناع
+                حوافّ الصورة الحقيقية — يُنصح بإبقائه مفعّلاً.
+              </td>
+            </tr>
+            <tr>
+              <td>تنعيم الحواف</td>
+              <td>تنعيم فيضي خفيف لإذابة التسنّن المتبقي.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          في الوضع التلقائي تُجرَّب كل الخوارزميات (ومن ضمنها GrabCut و«العصا
+          الذكية» التي تختار بذور الجسم تلقائياً) ويُختار القناع الأعلى درجة وفق
+          دالة تقييم بلا مرجع، ثم يُصقل بالمرشّح الموجّه.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ ملحق ج ═══════════════════ -->
+      <section class="chapter">
+        <h2>ملحق ج. ترميم الصور القديمة وتنقيح الوجوه ووضع المستندات</h2>
+        <p>
+          ثلاث لوحات متخصصة (خوارزميات OpenCV كلاسيكية — بلا ذكاء اصطناعي)، تفتح
+          كلٌّ منها من شريط الأدوات وتنفّذ عمليتها بزر واحد، وتُسجَّل النتيجة
+          خطوةً في السجل.
+        </p>
+
+        <h3>ج.1 ترميم الصور القديمة 🕰</h3>
+        <div class="steps">
+          <p class="step">
+            افتح الصورة القديمة (باهتة/مصفرة/مخدوشة) ثم لوحة «ترميم الصور
+            القديمة».
+          </p>
+          <p class="step">
+            اختر المعالجات: إزالة الخدوش (كشف مورفولوجي Top-Hat ثم ترميم
+            بالفيضان)، إزالة الغبار والبقع، واستعادة الألوان (موازنة لونية +
+            CLAHE).
+          </p>
+          <p class="step">
+            اضبط «تقليل الضوضاء» و«استعادة الحدة» (0–1) ثم انقر «ترميم الصورة».
+          </p>
+        </div>
+        <div class="note">
+          بعد التنفيذ تظهر رسالة بعدد بكسلات العيوب التي عولجت — إن كان صفراً
+          فالصورة نظيفة أصلاً وطُبّقت المعالجات اللونية فقط.
+        </div>
+
+        <h3>ج.2 تنقيح الوجوه 👤</h3>
+        <div class="steps">
+          <p class="step">
+            افتح صورة تحوي وجوهاً واضحة ثم لوحة «تنقيح الوجوه».
+          </p>
+          <p class="step">
+            اضبط «تنعيم البشرة» (0–1) واختر «إزالة العيوب» و«إزالة العين
+            الحمراء».
+          </p>
+          <p class="step">
+            انقر «تنقيح الوجوه» — يُكشف كل وجه (Haar) ويُنعَّم جلده بانتقائية
+            تحافظ على الملامح، وتُطفأ حمرة بؤبؤ العين إن وُجدت.
+          </p>
+        </div>
+        <div class="note">
+          تظهر بعد التنفيذ رسالة بعدد الوجوه المعالجة؛ «لم يُكتشف وجه» تعني أن
+          الصورة تحتاج وضوحاً أو إضاءة أفضل (الكشف كلاسيكي وليس نموذج تعلّم).
+        </div>
+
+        <h3>ج.3 وضع المستندات 📄</h3>
+        <table>
+          <caption>
+            جدول ج‑1: أوضاع معالجة المستند
+          </caption>
+          <thead>
+            <tr>
+              <th>الوضع</th>
+              <th>النتيجة</th>
+              <th>متى يُفضَّل</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>أبيض/أسود</td>
+              <td>مسح ضوئي ثنائي نظيف (أعتاب تكيفي).</td>
+              <td>أوراق نصية للطباعة/الأرشفة.</td>
+            </tr>
+            <tr>
+              <td>تحسين</td>
+              <td>خلفية بيضاء مع بقاء لون الحبر (أعتاب قسْمي).</td>
+              <td>مستندات ملوّنة أو أقلام ملونة.</td>
+            </tr>
+            <tr>
+              <td>ملوّن</td>
+              <td>توحيد إضاءة وإزالة الظلال مع كامل الألوان.</td>
+              <td>صفحات فيها صور أو رسوم.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          مع «تصحيح المنظور تلقائياً» تُكشف حدود الورقة المائلة (أكبر رباعي)
+          وتُفرد إلى مستطيل قبل المعالجة.
+        </div>
+      </section>
+
+      <!-- ═══════════════════ ملحق ب ═══════════════════ -->
+      <section class="chapter">
+        <h2>ملحق ب. حول المطوّر</h2>
+        <b> يُفتح قسم المطوّر من زر «المطوّر» في الشريط العلوي، ويعرض بطاقة
+        تعريفية تشمل أسماء فريق التطوير: <b>واثق المريسي</b>،
+        <b>عبدالله الجحافي</b>، <b>ايمن الوهبي</b>، و<b>عمر الزمر</b> — مع دور
+        الفريق، ونبذة عن منهجه في بناء المشروع، وقائمة التقنيات المستخدمة
+        (Python/FastAPI في الخلفية، OpenCV وNumPy وPillow للمعالجة،
+        وHTML/CSS/JavaScript مع Canvas في الواجهة)، ومراجع التوثيق داخل
+        المستودع.
+      </section>
+
+      <footer class="doc-end">
+        <div class="fin">نهاية الدليل — استوديو بكسل، الإصدار 1.0.0</div>
+        <p>
+          وُضعت هذه الوثيقة لتعمل دون اتصال بالإنترنت، ويمكن تحويلها إلى PDF من
+          نافذة الطباعة في المتصفح (اختيار «حفظ كـ PDF»).
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
